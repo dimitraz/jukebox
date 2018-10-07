@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# aws
+aws-exports.js
+.amplifyrc
+amplify/
