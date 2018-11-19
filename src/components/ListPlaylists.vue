@@ -2,6 +2,8 @@
   <div class="hello">
     <div v-for="playlist in playlists" :key="playlist.id">
       {{ playlist.name }}
+      {{ playlist.description }}
+      <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}">Playlist</router-link>
     </div>
   </div>
 </template>
@@ -10,13 +12,15 @@
 import { API, graphqlOperation } from "aws-amplify";
 
 const ListPlaylists = `
-  query {
-    listPlaylists {
-      items {
-        id name description
-      }
+query {
+  listPlaylists {
+    items {
+      id
+      name
+      description
     }
   }
+}
 `;
 
 export default {
@@ -28,6 +32,7 @@ export default {
   },
   async beforeCreate() {
     const data = await API.graphql(graphqlOperation(ListPlaylists));
+    console.log(data);
     this.playlists = data.data.listPlaylists.items;
   }
 };
