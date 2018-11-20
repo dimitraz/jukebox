@@ -15,48 +15,8 @@
 </template>
 
 <script>
-import { API, graphqlOperation } from "aws-amplify";
-
-const ListSongs = id => {
-  return `query listSongs {
-    listSongs(filter: {playlistId: {eq: "${id}" }}) {
-      items {
-        id
-        name
-        artist
-        album
-      }
-    }
-    }`;
-};
-
-const DeleteSong = id => {
-  return `mutation del {
-    deleteSong(input: {id: "${id}"}) {
-      id
-      playlistId
-    }
-  }`;
-};
-
-const SubscribeCreate = id => {
-  return `subscription get {
-    playlistUpdated(playlistId: "${id}") {
-      id
-      artist
-      name
-      genre
-    }
-  }`;
-};
-
-const SubscribeDel = id => {
-  return `subscription delete {
-    onDeleteSong(playlistId: "${id}") {
-      id
-    }
-  }`;
-};
+import { Auth, API, graphqlOperation } from "aws-amplify";
+import { OnCreateSong } from "../graphql/subscriptions";
 
 export default {
   name: "Playlist",
@@ -67,41 +27,21 @@ export default {
   },
   methods: {
     removeSong: async function(id) {
-      const data = await API.graphql(
-        graphqlOperation(DeleteSong(id))
-      );
-      console.log(data)
+      const data = await API.graphql(graphqlOperation(DeleteSong(id)));
       const songId = data.data.deleteSong.id;
-      console.log(songId)
       this.songs.splice(this.songs.findIndex(i => i.id === songId), 1);
     }
   },
   async created() {
-    const data = await API.graphql(
-      graphqlOperation(ListSongs(this.$route.params.id))
-    );
-    this.songs = data.data.listSongs.items;
-
-    // Subscribe to song create
-    const subscribeCreate = API.graphql(
-      graphqlOperation(SubscribeCreate(this.$route.params.id))
+    // Subscribe to creation of song
+    const subscription = API.graphql(
+      graphqlOperation(OnCreateSong)
     ).subscribe({
-      next: song => this.songs.push(song.value.data.playlistUpdated)
-    });
-
-    // Subscribe to song delete
-    const subscribeDelete = API.graphql(
-      graphqlOperation(SubscribeDel(this.$route.params.id))
-    ).subscribe({
-      next: song => {
-        const songId = song.value.data.onDeleteSong.id;
-        this.songs.splice(this.songs.findIndex(i => i.id === songId), 1);
-      }
+      next: song => console.log(song.value.data.onCreateSong)
     });
 
     // Stop receiving data updates from the subscription
-    // subscribeCreate.unsubscribe();
-    // subscribeDelete.unsubscribe();
+    // subscription.unsubscribe();
   }
 };
 </script>

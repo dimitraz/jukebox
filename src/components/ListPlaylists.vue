@@ -9,19 +9,9 @@
 </template>
 
 <script>
-import { API, graphqlOperation } from "aws-amplify";
-
-const ListPlaylists = `
-query {
-  listPlaylists {
-    items {
-      id
-      name
-      description
-    }
-  }
-}
-`;
+import { Auth, API, graphqlOperation } from "aws-amplify";
+// import { print as gqlToString } from 'graphql/language';
+import { ListPlaylists } from "../graphql/queries";
 
 export default {
   name: "ListPlaylists",
@@ -32,8 +22,10 @@ export default {
   },
   async beforeCreate() {
     const data = await API.graphql(graphqlOperation(ListPlaylists));
-    console.log(data);
     this.playlists = data.data.listPlaylists.items;
+  },
+  async created() {
+    // let creds = await Auth.currentUserCredentials(); 
   }
 };
 </script>
