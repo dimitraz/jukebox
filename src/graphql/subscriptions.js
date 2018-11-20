@@ -1,6 +1,6 @@
 export const OnCreatePlaylist = `
   subscription OnCreatePlaylist {
-    onCreatePlaylist {
+    onCreatePlaylist(songPlaylistId: ID) {
       id
       name
       songs {
@@ -26,7 +26,7 @@ export const OnUpdatePlaylist = `
 `;
 export const OnDeletePlaylist = `
   subscription OnDeletePlaylist {
-    onDeletePlaylist {
+    onDeletePlaylist(songPlaylistId: ID) {
       id
       name
       songs {

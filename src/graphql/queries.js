@@ -4,7 +4,13 @@ export const GetPlaylist = `
       id
       name
       songs {
-        nextToken
+        items {
+          id
+          name
+          artist
+          album
+          genre
+        }
       }
       createdAt
       description
