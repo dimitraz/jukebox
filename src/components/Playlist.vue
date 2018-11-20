@@ -64,11 +64,9 @@ export default {
     addSong: async function(song) {
       const addSong = await API.graphql(
         graphqlOperation(CreateSong, {
-          input: { name: song.name, songPlaylistId: this.$route.params.id }
+          input: { name: song.name, artist: song.artist, songPlaylistId: this.$route.params.id }
         })
       );
-      const songId = song.data.deleteSong.id;
-      this.playlistSongs.splice(this.playlistSongs.findIndex(i => i.id === songId), 1);
     },
     onSongInputChange(query) {
       if (query.trim().length === 0) {
@@ -85,6 +83,7 @@ export default {
     },
     onSongSelected(item) {
       this.selectedSong = item;
+      this.addSong(item);
     },
     onSearchItemSelected(item) {
       this.selectedSearchItem = item;
