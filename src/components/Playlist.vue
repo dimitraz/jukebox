@@ -1,8 +1,21 @@
 <template>
-  <div class="container">
-    <!-- {{ playlist }}  -->
-    <div v-for="song in songs" :key="song.id">
-      <div class="md-elevation-1">
+  <div class="container" style="margin: 0 auto">
+    <suggestions
+        v-model="query"
+        :options="options"
+        :onInputChange="onSongInputChange">
+        <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
+          <strong>{{ props.item.name }}</strong>
+          - {{ props.item.artist }}
+        </div>
+    </suggestions>
+
+    <div style="margin: 2em 0">
+      {{ selectedSong }}
+    </div>
+  
+    <div v-for="song in playlistSongs" :key="song.id">
+      <div>
       Song name: {{ song.name }} <br />
       Song id: {{ song.id }}<br />
       <!-- Song artist: {{ song.artist }}<br />
@@ -19,24 +32,62 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import { GetPlaylist } from "../graphql/queries";
 import { OnCreateSong, OnDeleteSong } from "../graphql/subscriptions";
-import { DeleteSong } from "../graphql/mutations";
+import { CreateSong, DeleteSong } from "../graphql/mutations";
 
 export default {
   name: "Playlist",
   data() {
+    let songs = [
+      { artist: "Kings of Convenience", name: "The Build Up" },
+      { artist: "Chicano Batman", name: "Passed you by" },
+      { artist: "Talking Heads", name: "This must be the place" },
+      { artist: "Still Woozy", name: "Wolf Cat" },
+      { artist: "Niel Frances", name: "Dumb Love" }
+    ];
     return {
-      songs: [],
-      playlist: {}
+      query: "",
+      songs: songs,
+      selectedSong: null,
+      options: {},
+      playlist: {},
+      playlistSongs: [],
     };
   },
   methods: {
     removeSong: async function(id) {
-      console.log(id);
       const song = await API.graphql(
         graphqlOperation(DeleteSong, { input: { id: id } })
       );
       const songId = song.data.deleteSong.id;
-      this.songs.splice(this.songs.findIndex(i => i.id === songId), 1);
+      this.playlistSongs.splice(this.playlistSongs.findIndex(i => i.id === songId), 1);
+    },
+    addSong: async function(song) {
+      const addSong = await API.graphql(
+        graphqlOperation(CreateSong, {
+          input: { name: song.name, songPlaylistId: this.$route.params.id }
+        })
+      );
+      const songId = song.data.deleteSong.id;
+      this.playlistSongs.splice(this.playlistSongs.findIndex(i => i.id === songId), 1);
+    },
+    onSongInputChange(query) {
+      if (query.trim().length === 0) {
+        return null;
+      }
+
+      // return the matching songs as an array
+      return this.songs.filter(song => {
+        return (
+          song.name.toLowerCase().includes(query.toLowerCase()) ||
+          song.artist.toLowerCase().includes(query.toLowerCase())
+        );
+      });
+    },
+    onSongSelected(item) {
+      this.selectedSong = item;
+    },
+    onSearchItemSelected(item) {
+      this.selectedSearchItem = item;
     }
   },
   async created() {
@@ -44,15 +95,14 @@ export default {
       graphqlOperation(GetPlaylist, { id: this.$route.params.id })
     );
     this.playlist = playlist.data.getPlaylist;
-    this.songs = this.playlist.songs.items;
-    // console.log(playlist.data.getPlaylist)
+    this.playlistSongs = this.playlist.songs.items;
 
     // Subscribe to creation of song
     const subscriptionCreate = API.graphql(
       graphqlOperation(OnCreateSong, { songPlaylistId: this.$route.params.id })
     ).subscribe({
       next: song => {
-        this.songs.push(song.value.data.onCreateSong);
+        this.playlistSongs.push(song.value.data.onCreateSong);
       }
     });
 
@@ -61,9 +111,8 @@ export default {
       graphqlOperation(OnDeleteSong, { songPlaylistId: this.$route.params.id })
     ).subscribe({
       next: song => {
-        console.log(song)
         const songId = song.value.data.onDeleteSong.id;
-        this.songs.splice(this.songs.findIndex(i => i.id === songId), 1);
+        this.playlistSongs.splice(this.playlistSongs.findIndex(i => i.id === songId), 1);
       }
     });
 

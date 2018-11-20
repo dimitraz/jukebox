@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "aws-amplify": "^1.1.6",
+    "v-suggestions": "^1.0.7",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },
