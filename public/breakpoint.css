@@ -1,0 +1,789 @@
+/*! minireset.css v0.0.3 | MIT License | github.com/jgthms/minireset.css */
+html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0; }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal; }
+  
+  ul {
+    list-style: none; }
+  
+  button, input, select, textarea {
+    margin: 0; }
+  
+  html {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+  
+  *, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit; }
+  
+  img, embed, iframe, object, audio, video {
+    height: auto; }
+  
+  iframe {
+    border: 0; }
+  
+  table {
+    border-collapse: collapse;
+    border-spacing: 0; }
+  
+  td, th {
+    padding: 0;
+    text-align: left; }
+  
+  body {
+    font: 115% -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+    line-height: 1.4;
+    color: #222;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased; }
+  
+  a {
+    color: #222;
+    outline: none;
+    text-decoration: none; }
+    a:focus, a:hover, a:active {
+      color: #fafafa; }
+  
+  /* Desktop screens */
+  .container {
+    width: 80%; }
+  
+  /* Tablet screens */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .container {
+      width: 90%; } }
+  
+  /* Mobile screens */
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 100%;
+      margin: 0 auto; } }
+  
+  /* Full width/fluid class */
+  .fluid {
+    width: 100%; }
+  
+  /* List of columns in word and number.
+   * These numbers will be looped through in  the mixins to create the class name and 
+   * the magnitude of columns the column will span.
+   */
+  /* 12 column grid - default gutter 1em */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, [col] 1fr);
+    grid-auto-rows: minmax(50px, auto);
+    grid-gap: 1em;
+    width: 100%;
+    /* No gutter helper class */
+    /* 1em gutter helper class */
+    /* 2em gutter helper class */
+    /* Vertically align all columns to the top */
+    /* Vertically align all columns to the center */
+    /* Vertically align all columns to the bottom */
+    /* Horizontally align all columns to the left */
+    /* Horizontally align all columns to the center */
+    /* Horizontally align all columns to the right */ }
+    .grid.gutter-none {
+      grid-gap: 0; }
+    .grid.gutter-one {
+      grid-gap: 1em; }
+    .grid.gutter-two {
+      grid-gap: 2em; }
+    .grid.top > .column {
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start; }
+    .grid.middle > .column {
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center; }
+    .grid.bottom > .column {
+      -webkit-box-align: end;
+      -ms-flex-align: end;
+      align-items: flex-end; }
+    .grid.left > .column {
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: flex-start; }
+    .grid.center > .column {
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+    .grid.bottom > .column {
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end; }
+  
+  /* Dynamic grid */
+  .autofit {
+    grid-template-columns: repeat(auto-fit, [col] minmax(300px, 1fr)); }
+  
+  /* This will be redundant if we create a .flex utility class */
+  .column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /* Vertically align single column to the top */
+    /* Vertically align single column to the center */
+    /* Vertically align single column to the bottom */
+    /* Horizontally align single column to the left */
+    /* Horizontally align single column to the center */
+    /* Horizontally align single column to the right */ }
+    .column.top {
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start; }
+    .column.middle {
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center; }
+    .column.bottom {
+      -webkit-box-align: end;
+      -ms-flex-align: end;
+      align-items: flex-end; }
+    .column.left {
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: flex-start; }
+    .column.center {
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+    .column.right {
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end; }
+  
+  /**
+   * Mixin to create mobile/standard 12 grid columns.
+   *
+   * @param $prefix - The prefix, i.e 'desktop-' for desktop grid
+   * @param $columns - The list of cardinal numbers in words and number i.e. 'one' 1
+   * 1. Loop through all the columns
+   * 2. Set the starting point as auto. This allows
+   *    columns to stack.
+   * 3. Set the column to span the desired amount of colums i.e. span 2 columns for .two
+   */
+  /**
+   * Mixin to create mobile/standard 12 grid columns.
+   *
+   * @param $prefix - The prefix, i.e 'desktop-' for desktop grid
+   * @param $columns - The list of cardinal numbers in words and number i.e. 'one' 1
+   * 1. Set the starting point as to the desired offset. 
+   *    i.e. offset-two will set the offset to the second
+   *    column
+   */
+  /* Desktop screens */
+  /* 1 */
+  .column.one {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 1;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.two {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 2;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.three {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 3;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.four {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 4;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.five {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 5;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.six {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 6;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.seven {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 7;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.eight {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 8;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.nine {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 9;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.ten {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 10;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.eleven {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 11;
+    /* 3 */ }
+  
+  /* 1 */
+  .column.twelve {
+    grid-column-start: auto;
+    /* 2 */
+    grid-column-end: span 12;
+    /* 3 */ }
+  
+  .column.offset-one {
+    grid-column-start: 2;
+    /* 1 */ }
+  
+  .column.offset-two {
+    grid-column-start: 3;
+    /* 1 */ }
+  
+  .column.offset-three {
+    grid-column-start: 4;
+    /* 1 */ }
+  
+  .column.offset-four {
+    grid-column-start: 5;
+    /* 1 */ }
+  
+  .column.offset-five {
+    grid-column-start: 6;
+    /* 1 */ }
+  
+  .column.offset-six {
+    grid-column-start: 7;
+    /* 1 */ }
+  
+  .column.offset-seven {
+    grid-column-start: 8;
+    /* 1 */ }
+  
+  .column.offset-eight {
+    grid-column-start: 9;
+    /* 1 */ }
+  
+  .column.offset-nine {
+    grid-column-start: 10;
+    /* 1 */ }
+  
+  .column.offset-ten {
+    grid-column-start: 11;
+    /* 1 */ }
+  
+  .column.offset-eleven {
+    grid-column-start: 12;
+    /* 1 */ }
+  
+  .column.offset-twelve {
+    grid-column-start: 13;
+    /* 1 */ }
+  
+  /* Mobile screens */
+  @media screen and (max-width: 700px) {
+    /* 1 */
+    .column.mobile-one {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 1;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-two {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 2;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-three {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 3;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-four {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 4;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-five {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 5;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-six {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 6;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-seven {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 7;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-eight {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 8;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-nine {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 9;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-ten {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 10;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-eleven {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 11;
+      /* 3 */ }
+    /* 1 */
+    .column.mobile-twelve {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 12;
+      /* 3 */ }
+    .column.mobile-offset-one {
+      grid-column-start: 2;
+      /* 1 */ }
+    .column.mobile-offset-two {
+      grid-column-start: 3;
+      /* 1 */ }
+    .column.mobile-offset-three {
+      grid-column-start: 4;
+      /* 1 */ }
+    .column.mobile-offset-four {
+      grid-column-start: 5;
+      /* 1 */ }
+    .column.mobile-offset-five {
+      grid-column-start: 6;
+      /* 1 */ }
+    .column.mobile-offset-six {
+      grid-column-start: 7;
+      /* 1 */ }
+    .column.mobile-offset-seven {
+      grid-column-start: 8;
+      /* 1 */ }
+    .column.mobile-offset-eight {
+      grid-column-start: 9;
+      /* 1 */ }
+    .column.mobile-offset-nine {
+      grid-column-start: 10;
+      /* 1 */ }
+    .column.mobile-offset-ten {
+      grid-column-start: 11;
+      /* 1 */ }
+    .column.mobile-offset-eleven {
+      grid-column-start: 12;
+      /* 1 */ }
+    .column.mobile-offset-twelve {
+      grid-column-start: 13;
+      /* 1 */ } }
+  
+  /* Tablet screens */
+  @media screen and (min-width: 700px) and (max-width: 1000px) {
+    /* 1 */
+    .column.tablet-one {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 1;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-two {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 2;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-three {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 3;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-four {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 4;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-five {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 5;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-six {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 6;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-seven {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 7;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-eight {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 8;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-nine {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 9;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-ten {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 10;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-eleven {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 11;
+      /* 3 */ }
+    /* 1 */
+    .column.tablet-twelve {
+      grid-column-start: auto;
+      /* 2 */
+      grid-column-end: span 12;
+      /* 3 */ }
+    .column.tablet-offset-one {
+      grid-column-start: 2;
+      /* 1 */ }
+    .column.tablet-offset-two {
+      grid-column-start: 3;
+      /* 1 */ }
+    .column.tablet-offset-three {
+      grid-column-start: 4;
+      /* 1 */ }
+    .column.tablet-offset-four {
+      grid-column-start: 5;
+      /* 1 */ }
+    .column.tablet-offset-five {
+      grid-column-start: 6;
+      /* 1 */ }
+    .column.tablet-offset-six {
+      grid-column-start: 7;
+      /* 1 */ }
+    .column.tablet-offset-seven {
+      grid-column-start: 8;
+      /* 1 */ }
+    .column.tablet-offset-eight {
+      grid-column-start: 9;
+      /* 1 */ }
+    .column.tablet-offset-nine {
+      grid-column-start: 10;
+      /* 1 */ }
+    .column.tablet-offset-ten {
+      grid-column-start: 11;
+      /* 1 */ }
+    .column.tablet-offset-eleven {
+      grid-column-start: 12;
+      /* 1 */ }
+    .column.tablet-offset-twelve {
+      grid-column-start: 13;
+      /* 1 */ } }
+  
+  /**
+   * Outer wrapper class for all input fieldsets
+   */
+  .field {
+    margin: 1.5em 0; }
+  
+  /**
+   * Wrapper class for all input fields
+   */
+  .input,
+  .textarea,
+  .select {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    /**
+      * Underline for input fields
+      */
+    /**
+      * After pseudo element for input underlines
+      * initially hidden outside by parent class
+      * overflow: hidden
+      * 1. Move the pseudo element to the left by 100%
+      * 2. Add animation effects to transform style
+      */
+    /**
+      * After pseudo animated and comes into view
+      * when child input is focussed
+      */ }
+    .input::after, .input::before,
+    .textarea::after,
+    .textarea::before,
+    .select::after,
+    .select::before {
+      content: '';
+      width: 100%;
+      border-bottom: 2px solid #222;
+      position: absolute;
+      bottom: 0;
+      left: 0; }
+    .input::after,
+    .textarea::after,
+    .select::after {
+      margin-top: 1px;
+      border-bottom: 4px solid #51AFC1;
+      -webkit-transform: translate3d(-101%, 0, 0);
+      /* 1 */
+      transform: translate3d(-101%, 0, 0);
+      /* 1 */
+      -webkit-transition: -webkit-transform 0.3s;
+      /* 2 */
+      transition: -webkit-transform 0.3s;
+      transition: transform 0.3s;
+      transition: transform 0.3s, -webkit-transform 0.3s;
+      /* 2 */ }
+    .input:focus-within::after,
+    .textarea:focus-within::after,
+    .select:focus-within::after {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
+  
+  /**
+  * General styling for the various inputs.
+  * The input is placed inside a wrapper with a class
+  * of the same name.
+  */
+  .input input,
+  .textarea textarea,
+  .select select {
+    height: 2em;
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: transparent;
+    font-size: 1em;
+    line-height: 1.5em; }
+    .input input:focus,
+    .textarea textarea:focus,
+    .select select:focus {
+      outline: none; }
+  
+  /**
+  * Textarea overrides
+  */
+  .textarea textarea {
+    height: 4em;
+    line-height: 1.5em;
+    resize: none; }
+  
+  /**
+  * Select input overrides. The padding is overriden.
+  * Since the select box depends on each browser,
+  * vendor prefixes are required to override some of the
+  * styles.
+  */
+  .select select {
+    height: 2em;
+    width: 100%;
+    font-size: 1em;
+    -webkit-padding-end: 0.5em 0;
+    -moz-padding-end: 0.5em;
+    -webkit-padding-start: 0;
+    -moz-padding-start: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    /**
+      * Select option padding overrides
+      * The padding is zeroed.
+      */
+    /**
+      * Overrides for multi select boxes.
+      * Default select boxes are kept, the height
+      * is adjusted. The select color is updated.
+      * 1. In order to set the background of the multi select, 
+      *    a linear gradient was required
+      */ }
+    .select select option {
+      -webkit-padding-end: 0;
+      -moz-padding-end: 0;
+      -webkit-padding-start: 0;
+      -moz-padding-start: 0; }
+    .select select[multiple] {
+      height: 4em;
+      overflow: scroll; }
+      .select select[multiple]:focus option:checked {
+        background: #51AFC1 -webkit-gradient(linear, left bottom, left top, from(#51AFC1), to(#51AFC1));
+        background: #51AFC1 linear-gradient(0deg, #51AFC1 0%, #51AFC1 100%);
+        /* 1 */ }
+  
+  /**
+  * Basic styling for input field labels.
+  */
+  .label {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 0.75em; }
+  
+  /**
+  * Checkbox and radio button wrapper.
+  * 1. Hide the input by setting the opacity to 0.
+  *    The checkbox/radio will be overlay this element.
+  */
+  .checkbox,
+  .radio {
+    width: 100%;
+    margin: 0.5em 0;
+    position: relative;
+    display: inline-block;
+    padding-left: 1.75em;
+    line-height: 1em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+    .checkbox input,
+    .radio input {
+      position: absolute;
+      opacity: 0;
+      /* 1 */
+      cursor: pointer; }
+    .checkbox:last-child,
+    .radio:last-child {
+      margin-bottom: 0; }
+  
+  /**
+  * Common stylings for radio inputs and checkboxes.
+  */
+  .selector {
+    height: 1em;
+    width: 1em;
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background-color: #eee; }
+  
+  /**
+  * Radio input overrides.
+  */
+  .radio > .selector {
+    border-radius: 50%; }
+  
+  /**
+  * Background styling of checked input.
+  */
+  .checkbox input:checked ~ .selector,
+  .radio input:checked ~ .selector {
+    background-color: #51AFC1; }
+  
+  /**
+  * Common styles for a selected input.
+  * Hidden by default.
+  */
+  .selector:after {
+    content: "";
+    position: absolute;
+    display: none; }
+  
+  /**
+  * Display tick/radio for selected input.
+  */
+  .checkbox input:checked ~ .selector:after,
+  .radio input:checked ~ .selector:after {
+    display: block; }
+  
+  /**
+  * Checkmark styling.
+  */
+  .checkbox > .selector::after {
+    width: 0.3em;
+    height: 0.6em;
+    color: #fff;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  
+  /**
+  * Radio input styling.
+  */
+  .radio > .selector::after {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: white; }
+  
+  /**
+  * Helper class for helper/error text in an
+  * input field.
+  */
+  .field .helper {
+    margin: 0.25em 0;
+    padding: 0.25em 0;
+    text-align: right;
+    list-style: none;
+    color: tomato;
+    font-size: 0.8em; }
+  
