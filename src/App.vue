@@ -7,6 +7,17 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+  data: () => ({ hydrated: false }),
+  async mounted() {
+    await this.$apollo.provider.defaultClient.hydrated();
+    this.hydrated = true;
+  }
+};
+</script>
+
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
