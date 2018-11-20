@@ -1,3 +1,5 @@
+import gql from 'graphql-tag';
+
 export const GetPlaylist = `
   query GetPlaylist($id: ID!) {
     getPlaylist(id: $id) {
@@ -17,7 +19,7 @@ export const GetPlaylist = `
     }
   }
 `;
-export const ListPlaylists = `
+export const ListPlaylists = gql`
   query ListPlaylists(
     $filter: ModelPlaylistFilterInput
     $limit: Int

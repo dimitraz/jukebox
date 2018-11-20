@@ -1,4 +1,6 @@
-export const CreatePlaylist = `
+import gql from 'graphql-tag';
+
+export const CreatePlaylist = gql`
   mutation CreatePlaylist($input: CreatePlaylistInput!) {
     createPlaylist(input: $input) {
       id
@@ -24,7 +26,7 @@ export const UpdatePlaylist = `
     }
   }
 `;
-export const DeletePlaylist = `
+export const DeletePlaylist = gql`
   mutation DeletePlaylist($input: DeletePlaylistInput!) {
     deletePlaylist(input: $input) {
       id
