@@ -10,7 +10,6 @@
 
 <script>
 import { Auth, API, graphqlOperation } from "aws-amplify";
-// import { print as gqlToString } from 'graphql/language';
 import { ListPlaylists } from "../graphql/queries";
 
 export default {
@@ -20,12 +19,11 @@ export default {
       playlists: []
     };
   },
-  async beforeCreate() {
-    const data = await API.graphql(graphqlOperation(ListPlaylists));
-    this.playlists = data.data.listPlaylists.items;
-  },
-  async created() {
-    // let creds = await Auth.currentUserCredentials(); 
+  apollo: {
+    playlists: {
+      query: () => ListPlaylists,
+      update: data => data.listPlaylists.items
+    }
   }
 };
 </script>
