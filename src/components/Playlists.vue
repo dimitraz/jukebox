@@ -1,17 +1,29 @@
 <template>
   <div class="playlists">
-    <h1>Playlists</h1>
-    <input v-model="playlistName" placeholder="Playlist Name" class="input">
-    <button @click="createPlaylist(playlistName)" class="playlistButton">Create Playlist</button>
-    <ul>
-      <li
-        class="playlist"
-        v-for="playlist in playlists" :key="playlist.id">
-        <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}"><p class="text">{{ playlist.name }}</p></router-link>
-        <p class="text">{{ playlist.username }}</p>
-        <p @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</p>
-      </li>
-    </ul>
+
+    <div class="header">
+      <h1>Playlists</h1>
+      <div class="input"><input v-model="playlistName" placeholder="Playlist Name"></div> 
+      <div class="input"><input v-model="playlistDesc" placeholder="Playlist Description"></div> 
+      <button @click="createPlaylist(playlistName)" class="playlistButton">Create Playlist</button>
+    </div>
+
+    <div class="grid"> 
+      <div  
+        class="five column item"
+        v-for="(playlist, index) in playlists" :key="playlist.id"
+        v-bind:class="[index % 2 == 0 ? 'offset-one' : '']">
+
+        <img src="@/assets/1.png" width="300px" height="300px" alt="">
+        <div class="meta">
+          <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}"><h1>{{ playlist.name }}</h1></router-link>
+          Created by: {{ playlist.username }}
+        </div>
+      
+        <!-- <p @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</p> -->
+
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,7 +39,8 @@ export default {
     createPlaylist(playlistName) {
       const playlist = {
         input: {
-          name: playlistName
+          name: playlistName,
+          description: playlistDesc
         }
       };
       const currentUser = {
@@ -114,6 +127,7 @@ export default {
   data() {
     return {
       playlistName: "",
+      playlistDesc: "",
       playlists: [],
       username: ""
     };
@@ -138,61 +152,35 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-* {
-  box-sizing: border-box;
+.header {
+  padding: 3em;
 }
 
-.playlistButton {
-  width: 100%;
+.grid {
+  border-bottom: 2px solid #111;
+}
+
+.grid image {
+  flex: 0 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.meta {
+  background: #222;
   padding: 10px;
-  margin-top: 10px;
-  background-color: #2196f3;
-  border: none;
-  color: white;
-  outline: none;
+  margin-top: 20px;
+  margin-left: -40px;
+  height: fit-content;
 }
-.input {
-  width: 100%;
-  padding: 8px;
-  font-size: 18px;
-  border: none;
-  border-bottom: 2px solid #2196f3;
-  outline: none;
+
+.item {
+  margin-bottom: 2em;
 }
-.button {
-  cursor: pointer;
-}
-.button:hover {
-  opacity: 0.5;
-}
-.text {
-  margin-top: 4px;
-  margin-bottom: 0px;
-}
-.delete {
-  color: #2196f3;
-}
-.playlist {
-  display: block;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-top: 8px;
-  padding-bottom: 9px;
-}
-h1,
-h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
+
+h1 {
+  margin: 0;
   padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>
