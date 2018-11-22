@@ -7,7 +7,14 @@ export const GetPlaylist = gql`
       id
       name
       songs {
-        nextToken
+        items {
+          id
+          name
+          artist
+          album
+          genre
+          username
+        }
       }
       createdAt
       description

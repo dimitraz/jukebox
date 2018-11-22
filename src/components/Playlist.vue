@@ -1,23 +1,33 @@
 <template>
-  <div class="container" style="margin: 0 auto">
+  <div>
     <suggestions
-        v-model="query"
-        :options="options"
-        :onInputChange="onSongInputChange">
-        <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
-          <strong>{{ props.item.name }}</strong>
-          - {{ props.item.artist }}
-        </div>
-    </suggestions>
-  
-    <div v-for="song in playlistSongs" :key="song.id">
-      <div>
-      Song name: {{ song.name }} <br />
-      Song artist: {{ song.artist }}<br />
-      Song album: {{ song.id }}
+      v-model="query"
+      :options="options"
+      :onInputChange="onSongInputChange">
+      <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
+        <strong>{{ props.item.name }}</strong>
+        - {{ props.item.artist }}
       </div>
-      <div style="padding-bottom: 2em;">
-        <a v-on:click="removeSong(song.id)">Remove</a>
+    </suggestions>
+
+    <!-- grid names -->
+    <div class="grid gutter-two item strong">
+      <div class="two column">Song name</div>
+      <div class="two column">Artist</div>
+      <div class="two column">Album</div>
+      <div class="two column">User</div>
+    </div>
+
+    <!-- grid items -->
+    <div 
+      v-for="(song, index) in playlistSongs" :key="song.id"
+      v-bind:class="[index % 2 == 0 ? 'item-alt' : 'item']">
+      <div class="grid gutter-two">
+        <div class="two column">{{ song.name }}</div>
+        <div class="two column">{{ song.artist }}</div>
+        <div class="two column">{{ song.album }}</div>
+        <div class="two column">{{ song.username }}</div>
+        <div class="two column"><a v-on:click="removeSong(song.id)">Remove</a></div>
       </div>
     </div>
   </div>
@@ -165,3 +175,17 @@ export default {
   }
 };
 </script>
+
+<style>
+.item, .item-alt {
+  padding: 1em;
+}
+
+.item-alt {
+  background: #333;
+}
+
+.strong {
+  font-weight: bold;
+}
+</style>
