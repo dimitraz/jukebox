@@ -10,11 +10,11 @@
         </div>
     </suggestions>
   
-    <div v-for="song in playlist.songs.items" :key="song.id">
+    <div v-for="song in playlistSongs" :key="song.id">
       <div>
       Song name: {{ song.name }} <br />
       Song artist: {{ song.artist }}<br />
-      <!-- Song album: {{ song.album }} -->
+      Song album: {{ song.id }}
       </div>
       <div style="padding-bottom: 2em;">
         <a v-on:click="removeSong(song.id)">Remove</a>
@@ -28,6 +28,7 @@ import { Auth, API, graphqlOperation } from "aws-amplify";
 import { GetPlaylist } from "../graphql/queries";
 import { OnCreateSong, OnDeleteSong } from "../graphql/subscriptions";
 import { CreateSong, DeleteSong } from "../graphql/mutations";
+import * as _ from "lodash";
 
 export default {
   name: "Playlist",
@@ -97,15 +98,50 @@ export default {
             data.getPlaylist.songs.items.push(createSong);
             store.writeQuery({
               query: GetPlaylist,
+              data: data,
               variables: { id: this.$route.params.id }
             });
           },
           optimisticResponse: {
             __typename: "Mutation",
-            createPlaylist: {
+            createSong: {
               __typename: "Song",
               id: "lol",
               ...song
+            }
+          }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+    },
+    removeSong(songId) {
+      this.$apollo
+        .mutate({
+          mutation: DeleteSong,
+          variables: {
+            input: {
+              id: songId
+            }
+          },
+          update: (store, { data: { deleteSong } }) => {
+            const data = store.readQuery({
+              query: GetPlaylist,
+              variables: { id: this.$route.params.id }
+            });
+            data.getPlaylist.songs.items = data.getPlaylist.songs.items.filter(
+              item => item.id !== songId
+            );
+            store.writeQuery({
+              query: GetPlaylist,
+              data: data,
+              variables: { id: this.$route.params.id }
+            });
+          },
+          optimisticResponse: {
+            __typename: "Mutation",
+            deleteSong: {
+              __typename: "Song",
+              id: songId
             }
           }
         })
@@ -116,7 +152,10 @@ export default {
   apollo: {
     playlist: {
       query: () => GetPlaylist,
-      update: data => data.getPlaylist,
+      update(data) {
+        this.playlistSongs = _.uniqBy(data.getPlaylist.songs.items, 'id');
+        return data.getPlaylist;
+      },
       variables() {
         return {
           id: this.$route.params.id
