@@ -31,6 +31,7 @@ export const ListPlaylists = gql`
         name
         createdAt
         description
+        username
       }
       nextToken
     }

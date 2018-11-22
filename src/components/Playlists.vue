@@ -8,6 +8,7 @@
         class="playlist"
         v-for="(playlist, index) in playlists" :key="index">
         <p class="text">{{ playlist.name }}</p>
+        <p class="text">{{ playlist.username }}</p>
         <p @click="deletePlaylist(playlist)" class="text button delete">Delete Playlist</p>
       </li>
     </ul>
@@ -17,6 +18,7 @@
 <script>
 import { CreatePlaylist, DeletePlaylist } from "../graphql/mutations";
 import { ListPlaylists } from "../graphql/queries";
+import { Auth } from "aws-amplify";
 
 export default {
   name: "Tasks",
@@ -76,16 +78,30 @@ export default {
         .catch(error => console.error(error));
     }
   },
+  async created() {
+    const user = await Auth.currentAuthenticatedUser();
+    this.username = user.username;
+  },
   data() {
     return {
       playlistName: "",
-      playlists: []
+      playlists: [],
+      username: ""
     };
   },
   apollo: {
     playlists: {
-      query: () => ListPlaylists,
-      update: data => data.listPlaylists.items
+      query: ListPlaylists,
+      update: data => data.listPlaylists.items,
+      variables() {
+        return {
+          filter: {
+            username: {
+              eq: this.username
+            }
+          }
+        };
+      }
     }
   }
 };
