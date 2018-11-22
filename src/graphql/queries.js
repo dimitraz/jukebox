@@ -1,4 +1,5 @@
-import gql from 'graphql-tag';
+// this is an auto generated file. This will be overwritten
+import gql from "graphql-tag";
 
 export const GetPlaylist = gql`
   query GetPlaylist($id: ID!) {
@@ -6,16 +7,11 @@ export const GetPlaylist = gql`
       id
       name
       songs {
-        items {
-          id
-          name
-          artist
-          album
-          genre
-        }
+        nextToken
       }
       createdAt
       description
+      username
     }
   }
 `;
@@ -47,10 +43,12 @@ export const GetSong = gql`
         name
         createdAt
         description
+        username
       }
       artist
       album
       genre
+      username
     }
   }
 `;
@@ -67,6 +65,7 @@ export const ListSongs = gql`
         artist
         album
         genre
+        username
       }
       nextToken
     }

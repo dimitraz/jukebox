@@ -1,4 +1,5 @@
-import gql from 'graphql-tag';
+// this is an auto generated file. This will be overwritten
+import gql from "graphql-tag";
 
 export const CreatePlaylist = gql`
   mutation CreatePlaylist($input: CreatePlaylistInput!) {
@@ -10,6 +11,7 @@ export const CreatePlaylist = gql`
       }
       createdAt
       description
+      username
     }
   }
 `;
@@ -23,6 +25,7 @@ export const UpdatePlaylist = gql`
       }
       createdAt
       description
+      username
     }
   }
 `;
@@ -36,6 +39,7 @@ export const DeletePlaylist = gql`
       }
       createdAt
       description
+      username
     }
   }
 `;
@@ -49,10 +53,12 @@ export const CreateSong = gql`
         name
         createdAt
         description
+        username
       }
       artist
       album
       genre
+      username
     }
   }
 `;
@@ -66,10 +72,12 @@ export const UpdateSong = gql`
         name
         createdAt
         description
+        username
       }
       artist
       album
       genre
+      username
     }
   }
 `;
@@ -83,10 +91,12 @@ export const DeleteSong = gql`
         name
         createdAt
         description
+        username
       }
       artist
       album
       genre
+      username
     }
   }
 `;

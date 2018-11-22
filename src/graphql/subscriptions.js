@@ -1,8 +1,9 @@
-import gql from 'graphql-tag';
+// this is an auto generated file. This will be overwritten
+import gql from "graphql-tag";
 
 export const OnCreatePlaylist = gql`
   subscription OnCreatePlaylist {
-    onCreatePlaylist(songPlaylistId: ID) {
+    onCreatePlaylist {
       id
       name
       songs {
@@ -10,6 +11,7 @@ export const OnCreatePlaylist = gql`
       }
       createdAt
       description
+      username
     }
   }
 `;
@@ -23,12 +25,13 @@ export const OnUpdatePlaylist = gql`
       }
       createdAt
       description
+      username
     }
   }
 `;
 export const OnDeletePlaylist = gql`
   subscription OnDeletePlaylist {
-    onDeletePlaylist(songPlaylistId: ID) {
+    onDeletePlaylist {
       id
       name
       songs {
@@ -36,6 +39,7 @@ export const OnDeletePlaylist = gql`
       }
       createdAt
       description
+      username
     }
   }
 `;
@@ -44,15 +48,17 @@ export const OnCreateSong = gql`
     onCreateSong {
       id
       name
+      playlist {
+        id
+        name
+        createdAt
+        description
+        username
+      }
       artist
       album
       genre
-      playlist {
-          id
-          name
-          createdAt
-          description
-      }
+      username
     }
   }
 `;
@@ -66,10 +72,12 @@ export const OnUpdateSong = gql`
         name
         createdAt
         description
+        username
       }
       artist
       album
       genre
+      username
     }
   }
 `;
@@ -83,10 +91,12 @@ export const OnDeleteSong = gql`
         name
         createdAt
         description
+        username
       }
       artist
       album
       genre
+      username
     }
   }
 `;
