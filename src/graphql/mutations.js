@@ -13,7 +13,7 @@ export const CreatePlaylist = gql`
     }
   }
 `;
-export const UpdatePlaylist = `
+export const UpdatePlaylist = gql`
   mutation UpdatePlaylist($input: UpdatePlaylistInput!) {
     updatePlaylist(input: $input) {
       id
@@ -39,7 +39,7 @@ export const DeletePlaylist = gql`
     }
   }
 `;
-export const CreateSong = `
+export const CreateSong = gql`
   mutation CreateSong($input: CreateSongInput!) {
     createSong(input: $input) {
       id
@@ -56,7 +56,7 @@ export const CreateSong = `
     }
   }
 `;
-export const UpdateSong = `
+export const UpdateSong = gql`
   mutation UpdateSong($input: UpdateSongInput!) {
     updateSong(input: $input) {
       id
@@ -73,7 +73,7 @@ export const UpdateSong = `
     }
   }
 `;
-export const DeleteSong = `
+export const DeleteSong = gql`
   mutation DeleteSong($input: DeleteSongInput!) {
     deleteSong(input: $input) {
       id

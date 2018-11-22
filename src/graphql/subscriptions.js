@@ -1,4 +1,6 @@
-export const OnCreatePlaylist = `
+import gql from 'graphql-tag';
+
+export const OnCreatePlaylist = gql`
   subscription OnCreatePlaylist {
     onCreatePlaylist(songPlaylistId: ID) {
       id
@@ -11,7 +13,7 @@ export const OnCreatePlaylist = `
     }
   }
 `;
-export const OnUpdatePlaylist = `
+export const OnUpdatePlaylist = gql`
   subscription OnUpdatePlaylist {
     onUpdatePlaylist {
       id
@@ -24,7 +26,7 @@ export const OnUpdatePlaylist = `
     }
   }
 `;
-export const OnDeletePlaylist = `
+export const OnDeletePlaylist = gql`
   subscription OnDeletePlaylist {
     onDeletePlaylist(songPlaylistId: ID) {
       id
@@ -37,7 +39,7 @@ export const OnDeletePlaylist = `
     }
   }
 `;
-export const OnCreateSong = `
+export const OnCreateSong = gql`
   subscription OnCreateSong {
     onCreateSong {
       id
@@ -54,7 +56,7 @@ export const OnCreateSong = `
     }
   }
 `;
-export const OnUpdateSong = `
+export const OnUpdateSong = gql`
   subscription OnUpdateSong {
     onUpdateSong {
       id
@@ -71,7 +73,7 @@ export const OnUpdateSong = `
     }
   }
 `;
-export const OnDeleteSong = `
+export const OnDeleteSong = gql`
   subscription OnDeleteSong {
     onDeleteSong {
       id

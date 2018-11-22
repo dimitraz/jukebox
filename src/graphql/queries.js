@@ -37,7 +37,7 @@ export const ListPlaylists = gql`
     }
   }
 `;
-export const GetSong = `
+export const GetSong = gql`
   query GetSong($id: ID!) {
     getSong(id: $id) {
       id
@@ -54,7 +54,7 @@ export const GetSong = `
     }
   }
 `;
-export const ListSongs = `
+export const ListSongs = gql`
   query ListSongs(
     $filter: ModelSongFilterInput
     $limit: Int
