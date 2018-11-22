@@ -6,8 +6,8 @@
     <ul>
       <li
         class="playlist"
-        v-for="(playlist, index) in playlists" :key="index">
-        <p class="text">{{ playlist.name }}</p>
+        v-for="playlist in playlists" :key="playlist.id">
+        <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}"><p class="text">{{ playlist.name }}</p></router-link>
         <p class="text">{{ playlist.username }}</p>
         <p @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</p>
       </li>
@@ -109,7 +109,6 @@ export default {
   },
   async created() {
     const user = await Auth.currentAuthenticatedUser();
-    console.log(user);
     this.username = user.username;
   },
   data() {
