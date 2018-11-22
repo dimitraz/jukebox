@@ -3,9 +3,6 @@
 
     <div class="header">
       <h1>Playlists</h1>
-      <div class="input"><input v-model="playlistName" placeholder="Playlist Name"></div> 
-      <div class="input"><input v-model="playlistDesc" placeholder="Playlist Description"></div> 
-      <button @click="createPlaylist(playlistName)" class="playlistButton">Create Playlist</button>
     </div>
 
     <div class="grid"> 
@@ -24,6 +21,15 @@
 
       </div>
     </div>
+
+    <div class="grid">
+      <div class="five column create offset-one">   
+        <h2>Create a playlist</h2>
+        <div class="input"><input v-model="playlistName" placeholder="Name"></div>
+        <div class="input"><input v-model="playlistDesc" placeholder="Description"></div>
+        <div class="submit"><a @click="createPlaylist(playlistName, playlistDesc)">Create Playlist</a></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -36,7 +42,7 @@ import * as _ from "lodash";
 export default {
   name: "Tasks",
   methods: {
-    createPlaylist(playlistName) {
+    createPlaylist(playlistName, playlistDesc) {
       const playlist = {
         input: {
           name: playlistName,
@@ -157,10 +163,6 @@ export default {
   padding: 3em;
 }
 
-.grid {
-  border-bottom: 2px solid #111;
-}
-
 .grid image {
   flex: 0 0 auto;
   max-width: 100%;
@@ -177,6 +179,22 @@ export default {
 
 .item {
   margin-bottom: 2em;
+}
+
+.create {
+  display: block;
+  margin: 2em 0 4em 0;
+  padding: 1em;
+}
+
+.submit {
+  background: #333;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+
+.submit:hover {
+  cursor: pointer;
 }
 
 h1 {

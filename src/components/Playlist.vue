@@ -1,18 +1,40 @@
 <template>
   <div>
-    <suggestions
-      v-model="query"
-      :options="options"
-      :onInputChange="onSongInputChange">
-      <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
-        <strong>{{ props.item.name }}</strong>
-        - {{ props.item.artist }}
+    <div class="grid playlist"> 
+      <div class="two column item">
+        <img src="@/assets/1.png" width="300px" height="300px" alt="">
       </div>
-    </suggestions>
+
+      <div class="three column item">
+        <div class="meta">
+          <h1>{{ playlist.name }}</h1>
+          Created by: {{ playlist.username }} <br>
+          <a @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</a>
+        </div>
+      </div>
+
+      <div class="four column item" style="display: block">
+        <h2> 
+          <img src="@/assets/search.png" class="search" alt="">
+          <span class="text">Add song</span>
+        </h2>
+        <div>
+          <suggestions
+            v-model="query"
+            :options="options"
+            :onInputChange="onSongInputChange">
+            <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
+              <strong>{{ props.item.name }}</strong>
+              - {{ props.item.artist }}
+            </div>
+          </suggestions>
+        </div>
+      </div>
+    </div>
 
     <!-- grid names -->
     <div class="grid gutter-two item strong">
-      <div class="two column">Song name</div>
+      <div class="two column offset-one">Song name</div>
       <div class="two column">Artist</div>
       <div class="two column">Album</div>
       <div class="two column">User</div>
@@ -21,9 +43,10 @@
     <!-- grid items -->
     <div 
       v-for="(song, index) in playlistSongs" :key="song.id"
-      v-bind:class="[index % 2 == 0 ? 'item-alt' : 'item']">
+      v-bind:class="[index % 2 == 0 ? 'item-alt' : '']"
+      class="item">
       <div class="grid gutter-two">
-        <div class="two column">{{ song.name }}</div>
+        <div class="two column offset-one">{{ song.name }}</div>
         <div class="two column">{{ song.artist }}</div>
         <div class="two column">{{ song.album }}</div>
         <div class="two column">{{ song.username }}</div>
@@ -177,8 +200,26 @@ export default {
 </script>
 
 <style>
-.item, .item-alt {
-  padding: 1em;
+.grid  {
+  grid-auto-rows: minmax(20px, auto);
+}
+
+h1 {
+  font-size: 250%;
+}
+
+h2 {
+  margin-bottom: 0.5em;
+  display: table;
+}
+
+.span, .text {
+    vertical-align:middle;
+    display:table-cell;
+}
+
+.item {
+  padding: 1em 0;
 }
 
 .item-alt {
@@ -187,5 +228,29 @@ export default {
 
 .strong {
   font-weight: bold;
+}
+
+.playlist {
+  border-top: 2px solid #333;
+  padding: 3em;
+  background: #111;
+}
+
+.search {
+  vertical-align:middle; 
+  height: 33px; 
+  margin-right: 5px
+}
+
+.meta {
+  background: #222;
+  padding: 10px;
+  margin-top: 50px;
+  margin-left: -30px;
+  height: fit-content;
+}
+
+a:hover {
+  cursor: pointer;
 }
 </style>

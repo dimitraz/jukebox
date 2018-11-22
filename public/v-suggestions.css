@@ -37,7 +37,7 @@
    background: #222;
    width: 100%;
    border: 0;
-   border-bottom: 2px solid #111;
+   border-bottom: 2px solid #444;
  }
   
   .v-suggestions-input:focus, .v-suggestions-input:active {
