@@ -1,6 +1,5 @@
 <template>
   <div class="container" style="margin: 0 auto">
-    {{ playlist }}
     <suggestions
         v-model="query"
         :options="options"
@@ -11,7 +10,7 @@
         </div>
     </suggestions>
   
-    <div v-for="song in playlistSongs" :key="song.id">
+    <div v-for="song in playlist.songs.items" :key="song.id">
       <div>
       Song name: {{ song.name }} <br />
       Song artist: {{ song.artist }}<br />
@@ -69,6 +68,49 @@ export default {
     },
     onSearchItemSelected(item) {
       this.selectedSearchItem = item;
+    },
+    removeEmptyFields(obj) {
+      for (var prop in obj) {
+        if (typeof obj[prop] === "object") {
+          removeEmptyFields(obj[prop]);
+        } else if (obj[prop] === "") {
+          delete obj[prop];
+        }
+      }
+      return obj;
+    },
+    addSong(song) {
+      this.$apollo
+        .mutate({
+          mutation: CreateSong,
+          variables: {
+            input: {
+              ...this.removeEmptyFields(song),
+              songPlaylistId: this.$route.params.id
+            }
+          },
+          update: (store, { data: { createSong } }) => {
+            const data = store.readQuery({
+              query: GetPlaylist,
+              variables: { id: this.$route.params.id }
+            });
+            data.getPlaylist.songs.items.push(createSong);
+            store.writeQuery({
+              query: GetPlaylist,
+              variables: { id: this.$route.params.id }
+            });
+          },
+          optimisticResponse: {
+            __typename: "Mutation",
+            createPlaylist: {
+              __typename: "Song",
+              id: "lol",
+              ...song
+            }
+          }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
     }
   },
   apollo: {
@@ -78,7 +120,7 @@ export default {
       variables() {
         return {
           id: this.$route.params.id
-        }
+        };
       }
     }
   }
