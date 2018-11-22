@@ -1,5 +1,6 @@
 <template>
   <div class="container" style="margin: 0 auto">
+    {{ playlist }}
     <suggestions
         v-model="query"
         :options="options"
@@ -9,17 +10,12 @@
           - {{ props.item.artist }}
         </div>
     </suggestions>
-
-    <div style="margin: 2em 0">
-      {{ selectedSong }}
-    </div>
   
     <div v-for="song in playlistSongs" :key="song.id">
       <div>
       Song name: {{ song.name }} <br />
-      Song id: {{ song.id }}<br />
-      <!-- Song artist: {{ song.artist }}<br />
-      Song album: {{ song.album }} -->
+      Song artist: {{ song.artist }}<br />
+      <!-- Song album: {{ song.album }} -->
       </div>
       <div style="padding-bottom: 2em;">
         <a v-on:click="removeSong(song.id)">Remove</a>
@@ -38,11 +34,11 @@ export default {
   name: "Playlist",
   data() {
     let songs = [
-      { artist: "Kings of Convenience", name: "The Build Up" },
-      { artist: "Chicano Batman", name: "Passed you by" },
-      { artist: "Talking Heads", name: "This must be the place" },
-      { artist: "Still Woozy", name: "Wolf Cat" },
-      { artist: "Niel Frances", name: "Dumb Love" }
+      { artist: "Kings of Convenience", name: "The Build Up", album: "" },
+      { artist: "Chicano Batman", name: "Passed you by", album: "" },
+      { artist: "Talking Heads", name: "This must be the place", album: "" },
+      { artist: "Still Woozy", name: "Wolf Cat", album: "" },
+      { artist: "Niel Frances", name: "Dumb Love", album: "" }
     ];
     return {
       query: "",
@@ -50,24 +46,10 @@ export default {
       selectedSong: null,
       options: {},
       playlist: {},
-      playlistSongs: [],
+      playlistSongs: []
     };
   },
   methods: {
-    removeSong: async function(id) {
-      const song = await API.graphql(
-        graphqlOperation(DeleteSong, { input: { id: id } })
-      );
-      const songId = song.data.deleteSong.id;
-      this.playlistSongs.splice(this.playlistSongs.findIndex(i => i.id === songId), 1);
-    },
-    addSong: async function(song) {
-      const addSong = await API.graphql(
-        graphqlOperation(CreateSong, {
-          input: { name: song.name, artist: song.artist, songPlaylistId: this.$route.params.id }
-        })
-      );
-    },
     onSongInputChange(query) {
       if (query.trim().length === 0) {
         return null;
@@ -89,35 +71,16 @@ export default {
       this.selectedSearchItem = item;
     }
   },
-  async created() {
-    const playlist = await API.graphql(
-      graphqlOperation(GetPlaylist, { id: this.$route.params.id })
-    );
-    this.playlist = playlist.data.getPlaylist;
-    this.playlistSongs = this.playlist.songs.items;
-
-    // Subscribe to creation of song
-    const subscriptionCreate = API.graphql(
-      graphqlOperation(OnCreateSong, { songPlaylistId: this.$route.params.id })
-    ).subscribe({
-      next: song => {
-        this.playlistSongs.push(song.value.data.onCreateSong);
+  apollo: {
+    playlist: {
+      query: () => GetPlaylist,
+      update: data => data.getPlaylist,
+      variables() {
+        return {
+          id: this.$route.params.id
+        }
       }
-    });
-
-    // Subscribe to deletion of song
-    const subscriptionDel = API.graphql(
-      graphqlOperation(OnDeleteSong, { songPlaylistId: this.$route.params.id })
-    ).subscribe({
-      next: song => {
-        const songId = song.value.data.onDeleteSong.id;
-        this.playlistSongs.splice(this.playlistSongs.findIndex(i => i.id === songId), 1);
-      }
-    });
-
-    // Stop receiving data updates from the subscription
-    // subscriptionCreate.unsubscribe();
-    // subscriptionDel.unsubscribe();
+    }
   }
 };
 </script>

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GetPlaylist = `
+export const GetPlaylist = gql`
   query GetPlaylist($id: ID!) {
     getPlaylist(id: $id) {
       id
