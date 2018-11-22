@@ -2,14 +2,14 @@
   <div class="playlists">
     <h1>Playlists</h1>
     <input v-model="playlistName" placeholder="Playlist Name" class="input">
-    <button @click="createPlaylist()" class="playlistButton">Create Playlist</button>
+    <button @click="createPlaylist(playlistName)" class="playlistButton">Create Playlist</button>
     <ul>
       <li
         class="playlist"
         v-for="(playlist, index) in playlists" :key="index">
         <p class="text">{{ playlist.name }}</p>
         <p class="text">{{ playlist.username }}</p>
-        <p @click="deletePlaylist(playlist)" class="text button delete">Delete Playlist</p>
+        <p @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</p>
       </li>
     </ul>
   </div>
@@ -19,14 +19,22 @@
 import { CreatePlaylist, DeletePlaylist } from "../graphql/mutations";
 import { ListPlaylists } from "../graphql/queries";
 import { Auth } from "aws-amplify";
+import * as _ from "lodash";
 
 export default {
   name: "Tasks",
   methods: {
-    createPlaylist() {
+    createPlaylist(playlistName) {
       const playlist = {
         input: {
-          name: "hello"
+          name: playlistName
+        }
+      };
+      const currentUser = {
+        filter: {
+          username: {
+            eq: this.username
+          }
         }
       };
       this.$apollo
@@ -34,15 +42,22 @@ export default {
           mutation: CreatePlaylist,
           variables: playlist,
           update: (store, { data: { createPlaylist } }) => {
-            const data = store.readQuery({ query: ListPlaylists });
+            const data = store.readQuery({
+              query: ListPlaylists,
+              variables: currentUser
+            });
             data.listPlaylists.items.push(createPlaylist);
-            store.writeQuery({ query: ListPlaylists, data });
+            store.writeQuery({
+              query: ListPlaylists,
+              data: data,
+              variables: currentUser
+            });
           },
           optimisticResponse: {
             __typename: "Mutation",
             createPlaylist: {
               __typename: "Playlist",
-              id: "lol",
+              id: "test_id",
               ...playlist.input
             }
           }
@@ -50,27 +65,41 @@ export default {
         .then(data => console.log(data))
         .catch(error => console.error("error!!!: ", error));
     },
-    deletePlaylist(playlist) {
+    deletePlaylist(playlistId) {
+      const currentUser = {
+        filter: {
+          username: {
+            eq: this.username
+          }
+        }
+      };
       this.$apollo
         .mutate({
           mutation: DeletePlaylist,
           variables: {
             input: {
-              id: playlist.id
+              id: playlistId
             }
           },
           update: (store, { data: { deletePlaylist } }) => {
-            const data = store.readQuery({ query: ListPlaylists });
+            const data = store.readQuery({
+              query: ListPlaylists,
+              variables: currentUser
+            });
             data.listPlaylists.items = data.listPlaylists.items.filter(
-              item => item.id !== deletePlaylist.id
+              item => item.id !== playlistId
             );
-            store.writeQuery({ query: ListPlaylists, data });
+            store.writeQuery({
+              query: ListPlaylists,
+              data: data,
+              variables: currentUser
+            });
           },
           optimisticResponse: {
             __typename: "Mutation",
             deletePlaylist: {
               __typename: "Playlist",
-              ...playlist
+              id: playlistId
             }
           }
         })
@@ -80,6 +109,7 @@ export default {
   },
   async created() {
     const user = await Auth.currentAuthenticatedUser();
+    console.log(user);
     this.username = user.username;
   },
   data() {
@@ -92,7 +122,9 @@ export default {
   apollo: {
     playlists: {
       query: ListPlaylists,
-      update: data => data.listPlaylists.items,
+      update(data) {
+        return _.uniqBy(data.listPlaylists.items, "id");
+      },
       variables() {
         return {
           filter: {
