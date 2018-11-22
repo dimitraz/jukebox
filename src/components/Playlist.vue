@@ -49,7 +49,7 @@
         <div class="two column offset-one">{{ song.name }}</div>
         <div class="two column">{{ song.artist }}</div>
         <div class="two column">{{ song.album }}</div>
-        <div class="two column">{{ song.username }}</div>
+        <div class="two column">{{ song.id }}</div>
         <div class="two column"><a v-on:click="removeSong(song.id)">Remove</a></div>
       </div>
     </div>
@@ -62,6 +62,7 @@ import { GetPlaylist } from "../graphql/queries";
 import { OnCreateSong, OnDeleteSong } from "../graphql/subscriptions";
 import { CreateSong, DeleteSong } from "../graphql/mutations";
 import * as _ from "lodash";
+import gql from "graphql-tag";
 
 export default {
   name: "Playlist",
@@ -186,13 +187,36 @@ export default {
     playlist: {
       query: () => GetPlaylist,
       update(data) {
-        this.playlistSongs = _.uniqBy(data.getPlaylist.songs.items, 'id');
+        this.playlistSongs = _.uniqBy(data.getPlaylist.songs.items, "id");
         return data.getPlaylist;
       },
       variables() {
         return {
           id: this.$route.params.id
         };
+      },
+      subscribeToMore: {
+        document: OnCreateSong,
+        updateQuery(previousResult, { subscriptionData }) {
+          const newSong = subscriptionData.data.onCreateSong;
+
+          // If we added the song already don't do anything
+          // This can be caused by the `updateQuery` of the addSong mutation
+          if (
+            previousResult.getPlaylist.songs.items.find(
+              song => song.id === newSong.id
+            )
+          ) {
+            return previousResult;
+          }
+
+          // Return the subscription data
+          previousResult.getPlaylist.songs.items.push(newSong);
+          this.playlistSongs = previousResult.getPlaylist.songs.items;
+          return {
+            playlist: previousResult.getPlaylist
+          };
+        }
       }
     }
   }
@@ -200,7 +224,7 @@ export default {
 </script>
 
 <style>
-.grid  {
+.grid {
   grid-auto-rows: minmax(20px, auto);
 }
 
@@ -213,9 +237,10 @@ h2 {
   display: table;
 }
 
-.span, .text {
-    vertical-align:middle;
-    display:table-cell;
+.span,
+.text {
+  vertical-align: middle;
+  display: table-cell;
 }
 
 .item {
@@ -237,9 +262,9 @@ h2 {
 }
 
 .search {
-  vertical-align:middle; 
-  height: 33px; 
-  margin-right: 5px
+  vertical-align: middle;
+  height: 33px;
+  margin-right: 5px;
 }
 
 .meta {
