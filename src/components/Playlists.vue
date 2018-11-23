@@ -1,18 +1,27 @@
 <template>
   <div class="playlists">
-    <!-- <amplify-sign-in></amplify-sign-in> -->
+    <!-- Create playlist modal -->
+    <modal name="create-playlist" height="auto" width="500px" style="background: #333;">
+      <div class="modal-content">
+        <h2>Create Jukebox</h2>
+        <div class="input"><input v-model="playlistName" placeholder="Name"></div>
+        <div class="input"><input v-model="playlistDesc" placeholder="Description"></div>
+      </div>
+      <div class="btn"><a @click="createPlaylist(playlistName, playlistDesc)">Create Playlist</a></div>
+      <!-- <div class="btn"><a>Cancel</a></div> -->
+    </modal>
 
     <div class="header">
-      <h1>Playlists</h1>
+      <h1>My Jukeboxes</h1>
+      <a @click="show()">Add Jukebox</a> &middot; Join Jukebox
     </div>
 
     <div class="grid"> 
       <div  
-        class="five column item"
+        class="five column block"
         v-for="(playlist, index) in playlists" :key="playlist.id"
         v-bind:class="[index % 2 == 0 ? 'offset-one' : '']">
   
-
         <span class="overlay">
           <img @click="deletePlaylist(playlist.id)" src="@/assets/close.png" class="close" alt="">
           <img src="@/assets/1.png" width="300px" height="300px" alt="">
@@ -22,20 +31,9 @@
           <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}"><h1>{{ playlist.name }}</h1></router-link>
           Created by: {{ playlist.username }}
         </div>
-
-        <!-- <p @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</p> -->
-
       </div>
     </div>
 
-    <div class="grid">
-      <div class="five column create offset-one">   
-        <h2>Create a playlist</h2>
-        <div class="input"><input v-model="playlistName" placeholder="Name"></div>
-        <div class="input"><input v-model="playlistDesc" placeholder="Description"></div>
-        <div class="submit"><a @click="createPlaylist(playlistName, playlistDesc)">Create Playlist</a></div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -48,6 +46,9 @@ import * as _ from "lodash";
 export default {
   name: "Tasks",
   methods: {
+    show() {
+      this.$modal.show("create-playlist");
+    },
     createPlaylist(playlistName, playlistDesc) {
       const playlist = {
         input: {
@@ -62,6 +63,8 @@ export default {
           }
         }
       };
+      this.playlistName = ""
+      this.playlistDesc = ""
       this.$apollo
         .mutate({
           mutation: CreatePlaylist,
@@ -89,6 +92,7 @@ export default {
         })
         .then(data => console.log(data))
         .catch(error => console.error("error!!!: ", error));
+        this.$modal.hide("create-playlist");
     },
     deletePlaylist(playlistId) {
       const currentUser = {
@@ -135,7 +139,6 @@ export default {
   async created() {
     const user = await Auth.currentAuthenticatedUser();
     this.username = user.username;
-    console.log(this.$Amplify)
   },
   data() {
     return {
@@ -165,7 +168,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .header {
   padding: 3em;
 }
@@ -177,14 +180,14 @@ export default {
 }
 
 .meta {
-  background: #222;
+  background: #1d1d1d;
   padding: 10px;
   margin-top: 20px;
   margin-left: -40px;
   height: fit-content;
 }
 
-.item {
+.block {
   margin-bottom: 2em;
 }
 
@@ -194,14 +197,29 @@ export default {
   padding: 1em;
 }
 
-.submit {
-  background: #333;
-  padding: 0.5em;
-  margin-top: 1em;
+.btn {
+  padding: 1rem;
+  width: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  border-top: 1px solid #333;
 }
 
-.submit:hover {
+h3 {
+  margin: 0 0 0.5em 0;
+}
+
+.btn a {
+  color: #aaa;
+}
+
+.btn:not(:first-of-type) {
+  border-left: 1px solid #333;
+}
+
+.btn:hover {
   cursor: pointer;
+  background: #1e1e1e;
 }
 
 h1 {
@@ -225,23 +243,25 @@ h1 {
   display: inline;
   cursor: pointer;
 }
-/* .overlay > .close {
-  position: absolute;
-  display: none;
-  width: 30px;
-  height: 30px;
+
+.modal-content {
+  padding: 1.5em;
+}
+
+.v--modal {
+  font-size: 80%;
+  border: 1px solid #333;
+  background: #222 !important;
   padding: 1em;
 }
 
-.image:hover > .overlay {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: #000;
-  opacity: 0.8;
+.vue-dialog .vue-dialog-buttons,
+.vue-dialog-button:not(:first-of-type) {
+  background: #222 !important;
+  border-color: #333 !important;
 }
 
-.image:hover > .overlay .close {
-  display: inline;
-} */
+.v--modal-overlay {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
 </style>
