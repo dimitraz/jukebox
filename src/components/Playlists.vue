@@ -1,5 +1,6 @@
 <template>
   <div class="playlists">
+    <!-- <amplify-sign-in></amplify-sign-in> -->
 
     <div class="header">
       <h1>Playlists</h1>
@@ -10,13 +11,18 @@
         class="five column item"
         v-for="(playlist, index) in playlists" :key="playlist.id"
         v-bind:class="[index % 2 == 0 ? 'offset-one' : '']">
+  
 
-        <img src="@/assets/1.png" width="300px" height="300px" alt="">
+        <span class="overlay">
+          <img @click="deletePlaylist(playlist.id)" src="@/assets/close.png" class="close" alt="">
+          <img src="@/assets/1.png" width="300px" height="300px" alt="">
+        </span>
+
         <div class="meta">
           <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}"><h1>{{ playlist.name }}</h1></router-link>
           Created by: {{ playlist.username }}
         </div>
-      
+
         <!-- <p @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</p> -->
 
       </div>
@@ -129,6 +135,7 @@ export default {
   async created() {
     const user = await Auth.currentAuthenticatedUser();
     this.username = user.username;
+    console.log(this.$Amplify)
   },
   data() {
     return {
@@ -201,4 +208,40 @@ h1 {
   margin: 0;
   padding: 0;
 }
+
+.close {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: none;
+  padding: 0.5em;
+}
+
+.overlay:hover {
+  opacity: 0.3;
+}
+
+.overlay:hover .close {
+  display: inline;
+  cursor: pointer;
+}
+/* .overlay > .close {
+  position: absolute;
+  display: none;
+  width: 30px;
+  height: 30px;
+  padding: 1em;
+}
+
+.image:hover > .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #000;
+  opacity: 0.8;
+}
+
+.image:hover > .overlay .close {
+  display: inline;
+} */
 </style>
