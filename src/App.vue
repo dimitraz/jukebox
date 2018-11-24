@@ -20,7 +20,11 @@ export default {
 
 <style>
 body {
-  background: #222;
+  background: #111111; /* Old browsers */
+  background: -moz-linear-gradient(left, #111111 0%, #1d1d1d 27%, #1d1d1d 27%, #333d56 91%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #111111 0%,#1d1d1d 27%,#1d1d1d 27%,#333d56 91%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #111111 0%,#1d1d1d 27%,#1d1d1d 27%,#333d56 91%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111111', endColorstr='#333d56',GradientType=1 ); /* IE6-9 */
   margin: 0;
 }
 
@@ -50,6 +54,7 @@ a {
 #nav {
   padding: 30px;
   background: #111;
+  font-weight: bold;
 }
 
 input {

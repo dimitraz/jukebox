@@ -7,13 +7,20 @@
         <div class="input"><input v-model="playlistName" placeholder="Name"></div>
         <div class="input"><input v-model="playlistDesc" placeholder="Description"></div>
       </div>
-      <div class="btn"><a @click="createPlaylist(playlistName, playlistDesc)">Create Playlist</a></div>
-      <!-- <div class="btn"><a>Cancel</a></div> -->
+    </modal>
+
+    <!-- Join playlist modal -->
+    <modal name="join-playlist" height="auto" width="500px" style="background: #333;">
+      <div class="modal-content">
+        <h2>Join Jukebox</h2>
+        <div class="input"><input v-model="playlistId" placeholder="Jukebox Id"></div>
+      </div>
+      <div class="btn"><a @click="joinPlaylist(playlistId)">Join Playlist</a></div>
     </modal>
 
     <div class="header">
       <h1>My Jukeboxes</h1>
-      <a @click="show()">Add Jukebox</a> &middot; Join Jukebox
+      <a class="link" @click="showCreate()">Add Jukebox</a> &middot; <a class="link" @click="showJoin()">Join Jukebox</a>
     </div>
 
     <div class="grid"> 
@@ -46,8 +53,14 @@ import * as _ from "lodash";
 export default {
   name: "Tasks",
   methods: {
-    show() {
+    showCreate() {
       this.$modal.show("create-playlist");
+    },
+    showJoin() {
+      this.$modal.show("join-playlist");
+    },
+    joinPlaylist(playlistId) {
+      this.$router.push({ name: 'playlist', params: { id: playlistId }})
     },
     createPlaylist(playlistName, playlistDesc) {
       const playlist = {
@@ -63,8 +76,8 @@ export default {
           }
         }
       };
-      this.playlistName = ""
-      this.playlistDesc = ""
+      this.playlistName = "";
+      this.playlistDesc = "";
       this.$apollo
         .mutate({
           mutation: CreatePlaylist,
@@ -92,7 +105,7 @@ export default {
         })
         .then(data => console.log(data))
         .catch(error => console.error("error!!!: ", error));
-        this.$modal.hide("create-playlist");
+      this.$modal.hide("create-playlist");
     },
     deletePlaylist(playlistId) {
       const currentUser = {
@@ -144,6 +157,7 @@ export default {
     return {
       playlistName: "",
       playlistDesc: "",
+      playlistId: "",
       playlists: [],
       username: ""
     };
@@ -199,10 +213,10 @@ export default {
 
 .btn {
   padding: 1rem;
-  width: 50%;
   display: inline-block;
   box-sizing: border-box;
   border-top: 1px solid #333;
+  width: 100%;
 }
 
 h3 {
@@ -233,6 +247,10 @@ h1 {
   position: absolute;
   display: none;
   padding: 0.5em;
+}
+
+.link {
+  cursor: pointer;
 }
 
 .overlay:hover {
