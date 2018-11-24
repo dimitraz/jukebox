@@ -7,7 +7,7 @@
         <div class="input"><input v-model="playlistName" placeholder="Name"></div>
         <div class="input"><input v-model="playlistDesc" placeholder="Description"></div>
       </div>
-      <div @click="createPlaylist(playlistName, playlistDesc)" class="btn">Create Playlist</div>
+      <div @click="createPlaylist(playlistName, playlistDesc)" class="btn">Create Jukebox</div>
     </modal>
 
     <!-- Join playlist modal -->
@@ -269,6 +269,10 @@ h1 {
 
 .modal-content {
   padding: 1.5em;
+}
+
+.modal-content h2 {
+  margin-bottom: 1em;
 }
 
 .v--modal {

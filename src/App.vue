@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Jukebox</router-link>
+      <router-link class="logo" to="/">Jukebox</router-link>
+
+      <div class="logout" @click="logOut()" :v-if="isAuthenticated()">
+        Log out
+      </div>
     </div>
     <router-view/>
   </div>
@@ -14,6 +18,15 @@ export default {
   async mounted() {
     await this.$apollo.provider.defaultClient.hydrated();
     this.hydrated = true;
+  },
+  methods: {
+    isAuthenticated() {
+      return localStorage.authenticated;
+    },
+    logOut() {
+      localStorage.authenticated = false;
+      this.$router.push({ name: 'login' })
+    }
   }
 };
 </script>
@@ -54,7 +67,17 @@ a {
 #nav {
   padding: 30px;
   background: #111;
+  box-sizing: border-box;
+}
+
+.logo {
   font-weight: bold;
+}
+
+.logout {
+  float: right;
+  cursor: pointer;
+  display: inline;
 }
 
 input {

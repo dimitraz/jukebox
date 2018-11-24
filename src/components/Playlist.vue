@@ -13,7 +13,7 @@
           <div class="meta">
             <h1>{{ playlist.name }}</h1>
             Created by: {{ playlist.username }} <br>
-            Created on: {{ playlist.createdAt }}
+            Created on: {{ playlist.createdAt.substring(0, 10) }}
           </div>
         </div>
       </div>
@@ -37,7 +37,8 @@
           </div>
 
           <!-- Song queue -->
-          <h2>Song Queue</h2>
+          <h2 class="margin">Song Queue</h2>
+              
           <div 
             v-for="(song, index) in playlistSongs" :key="song.id"
             v-bind:class="[index % 2 == 0 ? 'item-alt' : '']"
@@ -287,6 +288,10 @@ h2 {
 
 .padding {
   padding: 1em;
+}
+
+.margin {
+  margin-bottom: 1em;
 }
 
 .search {
