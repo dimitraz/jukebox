@@ -1,56 +1,63 @@
 <template>
   <div>
     <div class="grid playlist"> 
+      <!-- Display playlist info -->
       <div class="two column item">
+        <div style="padding:1em">
         <img src="@/assets/1.png" width="300px" height="300px" alt="">
+        </div>
       </div>
 
       <div class="three column item">
-        <div class="meta">
-          <h1>{{ playlist.name }}</h1>
-          Created by: {{ playlist.username }} <br>
-          <a @click="deletePlaylist(playlist.id)" class="text button delete">Delete Playlist</a>
+        <div class="padding">
+          <div class="meta">
+            <h1>{{ playlist.name }}</h1>
+            Created by: {{ playlist.username }} <br>
+            Created on: {{ playlist.createdAt }}
+          </div>
         </div>
       </div>
 
-      <div class="four column item" style="display: block">
-        <h2> 
-          <img src="@/assets/search.png" class="search" alt="">
-          <span class="text">Add song</span>
-        </h2>
-        <div>
-          <suggestions
-            v-model="query"
-            :options="options"
-            :onInputChange="onSongInputChange">
-            <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
-              <strong>{{ props.item.name }}</strong>
-              - {{ props.item.artist }}
+      <!-- Display songs -->
+      <div class="seven column item" style="display: block; background: #222; height: 100%;">
+        <div class="padding">
+          <!-- Suggestion box -->
+          <h2>Add song</h2>
+          <div>
+            <suggestions
+              v-model="query"
+              :options="options"
+              :onInputChange="onSongInputChange">
+
+              <div v-on:click="onSongSelected(props.item)" slot="item" slot-scope="props" class="single-item">
+                <strong>{{ props.item.name }}</strong>
+                - {{ props.item.artist }}
+              </div>
+            </suggestions>
+          </div>
+
+          <!-- Song queue -->
+          <h2>Song Queue</h2>
+          <div 
+            v-for="(song, index) in playlistSongs" :key="song.id"
+            v-bind:class="[index % 2 == 0 ? 'item-alt' : '']"
+            class="item">
+
+            <!-- Song item grid -->
+            <div class="grid">
+              <div class="eleven column">
+                <div class="bold">{{ song.name }}</div>
+                <div>
+                  {{ song.artist }} &middot; {{ song.username }}
+                </div>
+              </div>
+
+              <div class="one column">
+                <img @click="removeSong(song.id)" class="remove" src="@/assets/close.png" alt="">
+              </div>
             </div>
-          </suggestions>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- grid names -->
-    <div class="grid gutter-two item strong">
-      <div class="two column offset-one">Song name</div>
-      <div class="two column">Artist</div>
-      <div class="two column">Album</div>
-      <div class="two column">User</div>
-    </div>
-
-    <!-- grid items -->
-    <div 
-      v-for="(song, index) in playlistSongs" :key="song.id"
-      v-bind:class="[index % 2 == 0 ? 'item-alt' : '']"
-      class="item">
-      <div class="grid gutter-two">
-        <div class="two column offset-one">{{ song.name }}</div>
-        <div class="two column">{{ song.artist }}</div>
-        <div class="two column">{{ song.album }}</div>
-        <div class="two column">{{ song.id }}</div>
-        <div class="two column"><a v-on:click="removeSong(song.id)">Remove</a></div>
       </div>
     </div>
   </div>
@@ -58,22 +65,17 @@
 
 <script>
 import { Auth, API, graphqlOperation } from "aws-amplify";
+import axios from "axios";
 import { GetPlaylist } from "../graphql/queries";
 import { OnCreateSong, OnDeleteSong } from "../graphql/subscriptions";
 import { CreateSong, DeleteSong } from "../graphql/mutations";
 import * as _ from "lodash";
 import gql from "graphql-tag";
+import songs from "@/assets/songs.json";
 
 export default {
   name: "Playlist",
   data() {
-    let songs = [
-      { artist: "Kings of Convenience", name: "The Build Up", album: "" },
-      { artist: "Chicano Batman", name: "Passed you by", album: "" },
-      { artist: "Talking Heads", name: "This must be the place", album: "" },
-      { artist: "Still Woozy", name: "Wolf Cat", album: "" },
-      { artist: "Niel Frances", name: "Dumb Love", album: "" }
-    ];
     return {
       query: "",
       songs: songs,
@@ -82,6 +84,26 @@ export default {
       playlist: {},
       playlistSongs: []
     };
+  },
+  created() {
+    const headers = {
+      "X-Requested-With": "*",
+      "Access-Control-Allow-Headers":
+        "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,GET,OPTIONS"
+    };
+    axios
+      .post("", {
+        lyrics: "",
+        headers: headers
+      })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
   methods: {
     onSongInputChange(query) {
@@ -223,7 +245,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+body {
+  background: #111 !important;
+}
+
 .grid {
   grid-auto-rows: minmax(20px, auto);
 }
@@ -233,8 +259,7 @@ h1 {
 }
 
 h2 {
-  margin-bottom: 0.5em;
-  display: table;
+  margin-top: 1em;
 }
 
 .span,
@@ -243,22 +268,25 @@ h2 {
   display: table-cell;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .item {
-  padding: 1em 0;
+  /* font-size: 90%; */
+  padding: 1em;
 }
 
 .item-alt {
-  background: #333;
+  background: #1d1d1d;
 }
 
 .strong {
   font-weight: bold;
 }
 
-.playlist {
-  border-top: 2px solid #333;
-  padding: 3em;
-  background: #111;
+.padding {
+  padding: 1em;
 }
 
 .search {
@@ -275,7 +303,19 @@ h2 {
   height: fit-content;
 }
 
-a:hover {
+.remove {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  display: block;
+}
+
+a:hover,
+.remove:hover {
   cursor: pointer;
+}
+
+.column {
+  display: block;
 }
 </style>

@@ -7,6 +7,7 @@
         <div class="input"><input v-model="playlistName" placeholder="Name"></div>
         <div class="input"><input v-model="playlistDesc" placeholder="Description"></div>
       </div>
+      <div @click="createPlaylist(playlistName, playlistDesc)" class="btn">Create Playlist</div>
     </modal>
 
     <!-- Join playlist modal -->
@@ -15,7 +16,7 @@
         <h2>Join Jukebox</h2>
         <div class="input"><input v-model="playlistId" placeholder="Jukebox Id"></div>
       </div>
-      <div class="btn"><a @click="joinPlaylist(playlistId)">Join Playlist</a></div>
+      <div @click="joinPlaylist(playlistId)" class="btn">Join Playlist</div>
     </modal>
 
     <div class="header">
@@ -185,6 +186,10 @@ export default {
 <style>
 .header {
   padding: 3em;
+}
+
+.playlists {
+  margin-bottom: 2em;
 }
 
 .grid image {
