@@ -12,6 +12,7 @@ export const OnCreatePlaylist = gql`
       createdAt
       description
       username
+      mood
     }
   }
 `;
@@ -26,6 +27,7 @@ export const OnUpdatePlaylist = gql`
       createdAt
       description
       username
+      mood
     }
   }
 `;
@@ -40,6 +42,7 @@ export const OnDeletePlaylist = gql`
       createdAt
       description
       username
+      mood
     }
   }
 `;
@@ -54,6 +57,7 @@ export const OnCreateSong = gql`
         createdAt
         description
         username
+        mood
       }
       artist
       album
@@ -74,6 +78,7 @@ export const OnUpdateSong = gql`
         createdAt
         description
         username
+        mood
       }
       artist
       album
@@ -94,6 +99,7 @@ export const OnDeleteSong = gql`
         createdAt
         description
         username
+        mood
       }
       artist
       album

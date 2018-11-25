@@ -36,7 +36,7 @@ const appsyncProvider = new VueApollo({
   defaultClient: client
 });
 
-// Install the vue plugin
+// Install vue plugins
 Vue.use(VueApollo);
 Vue.use(vmodal, { dialog: true })
 

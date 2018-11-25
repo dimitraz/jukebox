@@ -20,6 +20,7 @@ export const GetPlaylist = gql`
       createdAt
       description
       username
+      mood
     }
   }
 `;
@@ -36,6 +37,7 @@ export const ListPlaylists = gql`
         createdAt
         description
         username
+        mood
       }
       nextToken
     }
@@ -52,6 +54,7 @@ export const GetSong = gql`
         createdAt
         description
         username
+        mood
       }
       artist
       album

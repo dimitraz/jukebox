@@ -3,8 +3,15 @@
     <div class="grid playlist"> 
       <!-- Display playlist info -->
       <div class="two column item">
-        <div style="padding:1em">
-        <img src="@/assets/1.png" width="300px" height="300px" alt="">
+        <div class="padding">
+          <img src="@/assets/1.png" width="300px" height="300px" alt="">
+
+          <div class="margin-top">
+            Mood: 
+              <i  v-if="mood === 'NEUTRAL'" class="far fa-meh"></i>
+              <i  v-if="mood === 'POSITIVE'" class="far fa-smile"></i>
+              <i  v-if="mood === 'NEGATIVE'" class="far fa-frown"></i>
+          </div>
         </div>
       </div>
 
@@ -13,7 +20,7 @@
           <div class="meta">
             <h1>{{ playlist.name }}</h1>
             Created by: {{ playlist.username }} <br>
-            Created on: {{ playlist.createdAt.substring(0, 10) }}
+            Created: {{ playlist.createdAt.substring(0, 10) }}
           </div>
         </div>
       </div>
@@ -37,7 +44,7 @@
           </div>
 
           <!-- Song queue -->
-          <h2 class="margin">Song Queue</h2>
+          <h2 class="margin-bottom">Song Queue</h2>
               
           <div 
             v-for="(song, index) in playlistSongs" :key="song.id"
@@ -83,28 +90,9 @@ export default {
       selectedSong: null,
       options: {},
       playlist: {},
-      playlistSongs: []
+      playlistSongs: [],
+      mood: "NEUTRAL"
     };
-  },
-  created() {
-    const headers = {
-      "X-Requested-With": "*",
-      "Access-Control-Allow-Headers":
-        "Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST,GET,OPTIONS"
-    };
-    axios
-      .post("", {
-        lyrics: "",
-        headers: headers
-      })
-      .then(function(res) {
-        console.log(res);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
   },
   methods: {
     onSongInputChange(query) {
@@ -168,7 +156,30 @@ export default {
             }
           }
         })
-        .then(data => console.log(data))
+        .then(data => {
+          console.log(data);
+
+          let lyrics = "";
+          _.uniqBy(this.playlistSongs, "name").forEach(song => {
+            if (song.lyrics) {
+              lyrics += song.lyrics;
+            }
+          });
+
+          if (lyrics) {
+            axios
+              .post(process.env.VUE_APP_ENDPOINT, {
+                lyrics: lyrics
+              })
+              .then(res => {
+                this.mood = res.data;
+                console.log(this.mood);
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          }
+        })
         .catch(error => console.error(error));
     },
     removeSong(songId) {
@@ -236,6 +247,7 @@ export default {
           // Return the subscription data
           previousResult.getPlaylist.songs.items.push(newSong);
           this.playlistSongs = previousResult.getPlaylist.songs.items;
+
           return {
             playlist: previousResult.getPlaylist
           };
@@ -290,8 +302,12 @@ h2 {
   padding: 1em;
 }
 
-.margin {
+.margin-bottom {
   margin-bottom: 1em;
+}
+
+.margin-top {
+  margin-top: 1em;
 }
 
 .search {
