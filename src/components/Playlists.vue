@@ -1,5 +1,15 @@
 <template>
   <div class="playlists">
+    <div class="grid header">
+      <div class="six column">
+        <h1>My Jukeboxes</h1>
+      </div>
+
+      <div class="six column right">
+        <a class="link" @click="showCreate()">Add Jukebox</a> &nbsp; &middot; &nbsp; <a class="link" @click="showJoin()">Join Jukebox</a>
+      </div>
+    </div>
+
     <!-- Create playlist modal -->
     <modal name="create-playlist" height="auto" width="500px" style="background: #333;">
       <div class="modal-content">
@@ -18,11 +28,6 @@
       </div>
       <div @click="joinPlaylist(playlistId)" class="btn">Join Playlist</div>
     </modal>
-
-    <div class="header">
-      <h1>My Jukeboxes</h1>
-      <a class="link" @click="showCreate()">Add Jukebox</a> &middot; <a class="link" @click="showJoin()">Join Jukebox</a>
-    </div>
 
     <div class="grid"> 
       <div  
@@ -186,6 +191,7 @@ export default {
 <style>
 .header {
   padding: 3em;
+  box-sizing: border-box;
 }
 
 .playlists {
@@ -222,6 +228,10 @@ export default {
   box-sizing: border-box;
   border-top: 1px solid #333;
   width: 100%;
+}
+
+.right {
+  justify-content: flex-end;
 }
 
 h3 {
