@@ -14,6 +14,7 @@ export const GetPlaylist = gql`
           album
           genre
           username
+          lyrics
         }
       }
       createdAt
@@ -56,6 +57,7 @@ export const GetSong = gql`
       album
       genre
       username
+      lyrics
     }
   }
 `;
@@ -73,6 +75,7 @@ export const ListSongs = gql`
         album
         genre
         username
+        lyrics
       }
       nextToken
     }

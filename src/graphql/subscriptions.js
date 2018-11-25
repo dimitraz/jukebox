@@ -59,6 +59,7 @@ export const OnCreateSong = gql`
       album
       genre
       username
+      lyrics
     }
   }
 `;
@@ -78,6 +79,7 @@ export const OnUpdateSong = gql`
       album
       genre
       username
+      lyrics
     }
   }
 `;
@@ -97,6 +99,7 @@ export const OnDeleteSong = gql`
       album
       genre
       username
+      lyrics
     }
   }
 `;

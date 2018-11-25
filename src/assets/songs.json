@@ -1,17 +1,54 @@
 [
-  { "artist": "Kings of Convenience", "name": "The Build Up", "album": "Declaration of Dependence" },
-  { "artist": "Kings of Convenience", "name": "24-25", "album": "Declaration of Dependence" },
-  { "artist": "Mac DeMarco", "name": "Only You", "album": "Rock and Roll Night Club" },
-  { "artist": "Mac DeMarco", "name": "Me and Jon Hanging on", "album": "Rock and Roll Night Club" },
+  {
+    "artist": "Kings of Convenience",
+    "name": "The Build Up",
+    "album": "Declaration of Dependence",
+    "lyrics": "She'll be gone soon You can have me for yourself She'll be gone soon You can have me for yourself But do give Just give me today Or you will just scare me away What we built is bigger Than the sum of two What we built is bigger Than the sum of two But somewhere I lost count of my own And somehow I must find it alone 24 and blooming like the fields of May 25 and yearning for a ticket out Dreams burn But in ashes are gold Dreams burn But in ashes are gold"
+  },
+  {
+    "artist": "Kings of Convenience",
+    "name": "24-25",
+    "album": "Declaration of Dependence"
+  },
+  {
+    "artist": "Mac DeMarco",
+    "name": "Only You",
+    "album": "Rock and Roll Night Club"
+  },
+  {
+    "artist": "Mac DeMarco",
+    "name": "Me and Jon Hanging on",
+    "album": "Rock and Roll Night Club"
+  },
   { "artist": "Mac DeMarco", "name": "Still Beating", "album": "This Old Dog" },
-  { "artist": "Blood Orange", "name": "Best to You", "album": "Freetown Sound" },
-  { "artist": "The Strokes", "name": "Call It Fate, Call It Karma", "album": "Comedown Machine" },
+  {
+    "artist": "Blood Orange",
+    "name": "Best to You",
+    "album": "Freetown Sound"
+  },
+  {
+    "artist": "The Strokes",
+    "name": "Call It Fate, Call It Karma",
+    "album": "Comedown Machine"
+  },
   { "artist": "Chicano Batman", "name": "Passed you by", "album": "" },
   { "artist": "Talking Heads", "name": "This must be the place", "album": "" },
   { "artist": "Still Woozy", "name": "Wolf Cat", "album": "" },
   { "artist": "Niel Frances", "name": "Dumb Love", "album": "" },
-  { "artist": "Peppino Gagliardi", "name": "Che vuole questa music stasera", "album": "" },
+  {
+    "artist": "Peppino Gagliardi",
+    "name": "Che vuole questa music stasera",
+    "album": ""
+  },
   { "artist": "Fabrizio De Andre", "name": "Un Blasfemo", "album": "" },
-  { "artist": "Donatella Rettore", "name": "Splendido Splendente", "album": "Donatella Rettore" },
-  { "artist": "Donatella Rettore", "name": "Lamette", "album": "Donatella Rettore" }
+  {
+    "artist": "Donatella Rettore",
+    "name": "Splendido Splendente",
+    "album": "Donatella Rettore"
+  },
+  {
+    "artist": "Donatella Rettore",
+    "name": "Lamette",
+    "album": "Donatella Rettore"
+  }
 ]
