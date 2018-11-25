@@ -111,6 +111,7 @@ export default {
     onSongSelected(item) {
       this.selectedSong = item;
       this.addSong(item);
+      this.query = "";
     },
     onSearchItemSelected(item) {
       this.selectedSearchItem = item;
@@ -124,6 +125,29 @@ export default {
         }
       }
       return obj;
+    },
+    getMood() {
+      let lyrics = "";
+      _.uniqBy(this.playlistSongs, "name").forEach(song => {
+        if (song.lyrics) {
+          lyrics += song.lyrics;
+        }
+      });
+
+      if (lyrics) {
+        axios
+          .post(process.env.VUE_APP_ENDPOINT, {
+            lyrics: lyrics
+          })
+          .then(res => {
+            this.mood = res.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.mood = 'NEUTRAL';
+      }
     },
     addSong(song) {
       this.$apollo
@@ -158,27 +182,7 @@ export default {
         })
         .then(data => {
           console.log(data);
-
-          let lyrics = "";
-          _.uniqBy(this.playlistSongs, "name").forEach(song => {
-            if (song.lyrics) {
-              lyrics += song.lyrics;
-            }
-          });
-
-          if (lyrics) {
-            axios
-              .post(process.env.VUE_APP_ENDPOINT, {
-                lyrics: lyrics
-              })
-              .then(res => {
-                this.mood = res.data;
-                console.log(this.mood);
-              })
-              .catch(error => {
-                console.log(error);
-              });
-          }
+          this.getMood();
         })
         .catch(error => console.error(error));
     },
@@ -213,7 +217,10 @@ export default {
             }
           }
         })
-        .then(data => console.log(data))
+        .then(data => {
+          console.log(data);
+          this.getMood();
+        })
         .catch(error => console.error(error));
     }
   },
@@ -222,6 +229,7 @@ export default {
       query: () => GetPlaylist,
       update(data) {
         this.playlistSongs = _.uniqBy(data.getPlaylist.songs.items, "id");
+        this.getMood();
         return data.getPlaylist;
       },
       variables() {
