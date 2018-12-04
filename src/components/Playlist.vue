@@ -4,7 +4,7 @@
       <!-- Display playlist info -->
       <div class="two column item">
         <div class="padding">
-          <img src="@/assets/1.png" width="300px" height="300px" alt="">
+          <img :src="getAlbumArt(playlist.art)" width="300px" height="300px" alt="">
 
           <div class="margin-top">
             Mood: 
@@ -126,6 +126,12 @@ export default {
       }
       return obj;
     },
+    getAlbumArt(albumArt) {
+      if (albumArt) {
+        return require(`../assets/${albumArt}.png`);
+      }
+      return require("../assets/6.png");
+    },
     getMood() {
       let lyrics = "";
       _.uniqBy(this.playlistSongs, "name").forEach(song => {
@@ -146,7 +152,7 @@ export default {
             console.log(error);
           });
       } else {
-        this.mood = 'NEUTRAL';
+        this.mood = "NEUTRAL";
       }
     },
     addSong(song) {

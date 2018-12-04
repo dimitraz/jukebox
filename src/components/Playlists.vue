@@ -37,11 +37,11 @@
   
         <span class="overlay">
           <img @click="deletePlaylist(playlist.id)" src="@/assets/close.png" class="close" alt="">
-          <img src="@/assets/1.png" width="300px" height="300px" alt="">
+          <img v-bind:src="getAlbumArt(playlist.art)" width="300px" height="300px" alt="">
         </span>
 
         <div class="meta">
-          <router-link :to="{ name: 'playlist', props: { id: playlist.id }, params: { id: playlist.id }}"><h1>{{ playlist.name }}</h1></router-link>
+          <router-link :to="{ name: 'playlist', params: { id: playlist.id }}"><h1>{{ playlist.name }}</h1></router-link>
           Created by: {{ playlist.username }}
         </div>
       </div>
@@ -67,6 +67,12 @@ export default {
     },
     joinPlaylist(playlistId) {
       this.$router.push({ name: 'playlist', params: { id: playlistId }})
+    },
+    getAlbumArt(albumArt) {
+      if (albumArt) {
+        return require(`../assets/${albumArt}.png`)
+      }
+      return require('../assets/6.png')
     },
     createPlaylist(playlistName, playlistDesc) {
       const playlist = {

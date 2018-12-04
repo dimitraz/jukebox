@@ -21,6 +21,7 @@ export const GetPlaylist = gql`
       description
       username
       mood
+      art
     }
   }
 `;
@@ -38,6 +39,7 @@ export const ListPlaylists = gql`
         description
         username
         mood
+        art
       }
       nextToken
     }
