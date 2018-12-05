@@ -20,33 +20,74 @@
   {
     "artist": "Mac DeMarco",
     "name": "Me and Jon Hanging on",
-    "album": "Rock and Roll Night Club"
+    "album": "Rock and Roll Night Club",
+    "lyrics": "It's just me and Jon, we're hanging on Trying it out, singing our song It's just Jon and me and all that we've seen Trying it out, plain as can be Sweetheart, wipe those tears away and let me love you, baby Oh darling, come out of your cave and let me love you, baby Ooh-ooh, ooh-ooh"
   },
-  { "artist": "Mac DeMarco", "name": "Still Beating", "album": "This Old Dog" },
+  {
+    "artist": "Mac DeMarco",
+    "name": "Still Beating",
+    "album": "This Old Dog",
+    "lyrics": "I never meant to make her cry And now I’m seeing tears in her eyes Half and half, make believe ’Cause so she thought, well my heart was on my sleeve Honey, I cried too You better believe it Honey, my heart still beats for you Even though you don’t feel it Beating  Never thought some silly songs could ever go and hurt someone I never meant to sing my tune for anybody else out there but you Honey, I cried too You better believe it Honey, my heart still beats for you Even though you don’t feel it Honey, I cried too You better believe it  Honey, my heart still beats for you Even though you don’t feel it Beating"
+  },
   {
     "artist": "Blood Orange",
     "name": "Best to You",
-    "album": "Freetown Sound"
+    "album": "Freetown Sound",
+    "lyrics": "Call it all for nothing But I'd rather be nothing to you Than be a part of something Of something that I didn't do I can be the only one (Did he even notice?) I can be the best to you, be the best to you (Do you really want to?) I can be the only one (Did he even notice?) I can be the best to you, be the best to you Part of me is faking Faking it all just for fun Part of me is breaking Breaking apart when you come I can be the only one (Did he even notice?) I can be the best to you be the best to you (Do you really want to?) I feel my bones, I feel my bones, I feel my bones crack in your arms And I can tell you what you want but I tell you all the things I like And if I keep myself away would you chase in the dead of night And I can't be the girl you want but I can be the thing you Throw away, throw away, throw away Throw away, throw away, you throw away Throw away, throw away, throw away Throw away, throw away, you throw away"
   },
   {
     "artist": "The Strokes",
     "name": "Call It Fate, Call It Karma",
-    "album": "Comedown Machine"
+    "album": "Comedown Machine",
+    "lyrics": "Close the door Not all the way He don’t understand  We don’t understand So don’t you wanna remind me I don’t know a thing And some of us remember And some run out of place Can I waste all your time here on the sidewalk? Can I stand in your light just for a while? I’ve waited around and oh no, you are are not around I made up more time watchin’ you You got it down now, don’t you? I wanted to understand your face So don’t you wanna remind me I don’t know a thing And some of us remember And some run out of place Can I waste all your time here on the sidewalk? Can I stand in your light just for a while? I’ve waited around and oh no, you are are not around I made up more time watchin’ you I needed someone I needed someone"
   },
-  { "artist": "Chicano Batman", "name": "Passed you by", "album": "" },
-  { "artist": "Talking Heads", "name": "This must be the place", "album": "" },
-  { "artist": "Still Woozy", "name": "Wolf Cat", "album": "" },
-  { "artist": "Niel Frances", "name": "Dumb Love", "album": "" },
+  {
+    "artist": "Chicano Batman",
+    "name": "Passed you by",
+    "album": "Freedom is Free",
+    "lyrics": "And every time you step outside the door You wanted more You're mad because you didn't get as high And every time you step outside the gate You get irate You're mad because euphoria passed you by Passed you by Passed you by Passed you by Ooh darlin' doll nobody can hold me back Passed you by oday may not be my day but tomorrow will never lack Passed you by Watch me as I ride this wave home darlin' Passed you by Feel me as I reach the mountain top And now it's time for you to leave the stage Jump in your cage You're mad because you didn't get as high And now it's time for you to find a path Just do the math You're mad because euphoria passed you by Passed you by Passed you by Passed you by And here I am watching the hawks fly Passed you by Breathing the air feeling the sky Passed you by Cuz' there ain't no place I'd rather be Passed you by On top of the mountain feeling free! Passed you by Passed you by Passed you by"
+  },
+  {
+    "artist": "Talking Heads",
+    "name": "This must be the place",
+    "album": "Stop Making Sense",
+    "lyrics": "Home is where I want to be Pick me up and turn me around I feel numb, born with a weak heart I guess I must be having fun The less we say about it the better Make it up as we go along Feet on the ground, head in the sky It's okay, I know nothing's wrong, nothing Oh! I got plenty of time Oh! You got light in your eyes And you're standing here beside me I love the passing of time Never for money, always for love Cover up and say goodnight, say goodnight Home, is where I want to be But I guess I'm already there I come home, she lifted up her wings I guess that this must be the place I can't tell one from the other I find you, or you find me? There was a time before we were born If someone asks, this is where I'll be, where I'll be oh! We drift in and out Oh! Sing into my mouth Out of all those kinds of people You got a face with a view I'm just an animal looking for a home and Share the same space for a minute or two And you love me till my heart stops Love me till I'm dead Eyes that light up Eyes look through you Cover up the blank spots Hit me on the head I got ooh!"
+  },
+  {
+    "artist": "Talking Heads",
+    "name": "Psycho Killer",
+    "album": "Talking Heads 77",
+    "lyrics": "I can't seem to face up through the facts I'm tense and nervous and I can't relax I can't sleep cause my bed's on fire Don't touch me, I'm a real live wire Psycho killer, qu'est-ce que c'est far better Run, run, run, run, run, run, run away Psycho killer, qu'est-ce que c'est far better Run, run, run, run, run, run, run away You start a conversation, you can't even finish it You're talking a lot, but you're not saying anything When I have nothing to say, my lips are sealed Say something once, why say it again? Psycho killer, qu'est-ce que c'est far better Run, run, run, run, run, run, run away Psycho killer, qu'est-ce que c'est far better run, run, run, run, run, run, run away Ce que j'ai fait, ce soir là Ce qu'elle a dit, ce soir là Realisant mon espoir Je me lance, vers la gloire, okay We are vain and we are blind I hate people when they're not polite Psycho killer, qu'est-ce que c'est far better Run, run, run, run, run, run, run away Psycho killer, qu'est-ce que c'est far better Run, run, run, run, run, run, run away"
+  },
+  {
+    "artist": "Cosmo Pyke",
+    "name": "Wish you were gone",
+    "album": "Just Cosmo",
+    "lyrics": "Don't go 'Cause I can't see you gone And if you were to go then I would probably dig a hole Underground, I'd be safe and sound I wouldn't have to see you Or your other friends in town Don't stare 'Cause I can't see you there I know it annoys you when I act like I don't care I do I once did love you But now I'm feeling opposite Like red does blue So get out my face And leave me be I don't love you And you certi don't love me So this is all wrong Your argument is long and now you've overstayed your welcome And I wish you were gone I wish you were gone That was worth the while You say you don't love me But I say you're in denial I prove I once did love you But now I'm feeling opposite and I don't know what to do And you certi don't love me So this is all wrong Your argument is long and now you've overstayed your welcome But I wish you were gone I wish you were gone So fuckin' bad And I know you Don't want me in your world But let me tell you I'm fine with that, girl If you really Think me as a tool I might tell you My feelings on you Joan 'Cause girl So won't you get out my face and leave me be I don't love you And you certainly don't love me So this is all wrong your argument is long and now you've overstayed your welcome And I wish you were gone I wish you were gone I said I wish you were gone So fuckin' bad"
+  },
+  {
+    "artist": "Gateway Drugs",
+    "name": "In Stereo",
+    "album": "Dare Tonight",
+    "lyrics": "Elegant words Will disappear in the night Perfectly cursed Reflect your face in the light Endlessly vague The voiding eyes through the dark Beautifully strange Fading desires to stalk And the light reveals the truth Divine, objected youth In stereo we move Oh, how the night devours you And the light reveals the truth Divine, objected youth In stereo we move Oh, how the night devours you Lost in the dream Following angels as flies Tragic conceit Transcend in-band into life On open stage Strangers the moment you wave Endlessly vague An unintended escape And the light reveals the truth Divine, objected youth In stereo we move Oh, how the night devours you And the light reveals the truth Divine, objected youth In stereo we move Oh, how the night devours you"
+  },
   {
     "artist": "Peppino Gagliardi",
     "name": "Che vuole questa music stasera",
-    "album": ""
+    "album": "Profumo Di Donna",
+    "lyrics": "Che vuole questa musica, stasera, che mi riporta un poco del passato, la luna ci teneva compagnia, io ti sentivo mia, soltanto mia, soltanto mia. Vorrei tenerti qui, vicino a me, adesso che fra noi non c'è più nulla, vorrei sentire ancor le tue parole, quelle parole che non sento più. Il mondo intorno a noi non esisteva per la felicità che tu mi davi. Che me ne faccio ormai di tutti i giorni miei se nei miei giorni non ci sei più tu. Che vuole questa musica, stasera, che mi riporta un poco del passato, che mi riporta un poco del tuo amore, che mi riporta un poco di te. Che me ne faccio ormai di tutti i giorni miei se nei miei giorni non ci sei più tu. Che vuole questa musica, stasera, che mi riporta un poco del passato, che mi riporta un poco del tuo amore, che mi riporta un poco di te, un poco di te."
   },
-  { "artist": "Fabrizio De Andre", "name": "Un Blasfemo", "album": "" },
+  {
+    "artist": "Fabrizio De Andre",
+    "name": "Un Blasfemo",
+    "album": "Non Al Denaro Non All'amore Nè Al Cielo",
+    "lyrics": "Mai più mi chinai e nemmeno su un fiore, più non arrossii nel rubare l'amore dal momento che Inverno mi convinse che Dio non sarebbe arrossito rubandomi il mio. Mi arrestarono un giorno per le donne ed il vino, non avevano leggi per punire un blasfemo, non mi uccise la morte, ma due guardie bigotte, mi cercarono l'anima a forza di botte. Perché dissi che Dio imbrogliò il primo uomo, lo costrinse a viaggiare una vita da scemo, nel giardino incantato lo costrinse a sognare, a ignorare che al mondo c'e' il bene e c'è il male. Quando vide che l'uomo allungava le dita a rubargli il mistero di una mela proibita per paura che ormai non avesse padroni lo fermò con la morte, inventò le stagioni. ... mi cercarono l'anima a forza di botte... E se furon due guardie a fermarmi la vita, è proprio qui sulla terra la mela proibita, e non Dio, ma qualcuno che per noi l'ha inventato, ci costringe a sognare in un giardino incantato, ci costringe a sognare in un giardino incantato ci costringe a sognare in un giardino incantato. "
+  },
   {
     "artist": "Donatella Rettore",
     "name": "Splendido Splendente",
-    "album": "Donatella Rettore"
+    "album": "Donatella Rettore",
+    "lyrics": "Splendido splendente L'ha scritto anche il giornale Io ci credo ciecamente Anestetico d'effetto E avrai una faccia nuova Grazie a un bisturi perfetto Invitante, tagliente Splendido splendente. Splendido splendente Costa poco e finalmente Io sorrido eternamente Amo un camice innocente Si avvicina sorridente E' padrone e già si sente Perdo i sensi lentamente Come tra le braccia di un amante Splendido splendente. Per la vita una splendente vanità. Splendido splendente Come sono affascinante Faccio cerchi con la mente Mi distinguo tra la gente Tutto relativamente Grazie a un bisturi tagliente Invitante, splendente Splendido splendente. Sono splendida splendente Io mi amo finalmente Ho una pelle trasparente Come un uovo di serpente. Come sono si vedrà Uomo o donna senza età Senza sesso crescerà Per la vita una splendente vanità."
   },
   {
     "artist": "Donatella Rettore",
